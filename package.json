@@ -1,0 +1,31 @@
+{
+  "name": "keen-query",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/keen-query.js",
+  "dependencies": {
+    "ascii-table": "^0.0.8",
+    "commander": "^2.9.0",
+    "fetchres": "^1.5.1",
+    "isomorphic-fetch": "^2.2.0"
+  },
+  "bin": {
+    "keen-query": "./bin/keen-query.js",
+    "kq": "./bin/keen-query.js"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Financial-Times/keen-query.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Financial-Times/keen-query/issues"
+  },
+  "homepage": "https://github.com/Financial-Times/keen-query#readme"
+}
