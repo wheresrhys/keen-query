@@ -10,7 +10,7 @@ Terse query language for keen, (inspired by cypher from neo4j and - blimey! - ph
 
 `npm install -g Financial-Times/keen-query`
 
-Make sure you have KEEN_READ_KEY and KEEN_PROJECTID env vars set
+Make sure you have KEEN_READ_KEY and KEEN_PROJECT_ID env vars set
 
 Then something like `kq 'page:view->count()'` or `kq 'page:view->count()->print(url)'` to retrieve the actual keen urls used (it will always return 2 urls: the first for this period, the second for previous)
 
