@@ -33,9 +33,12 @@ Queries are chainable and don't require any quote marks around values (values wi
 - `->time(period, interval)` e.g time(6,h) = this 6 days, hourly interval, time(5_hours,m) = this 5 hours, minutely interval, time(22_months) = this 22 months as a single figure
 - `->compare()` - Will compare with the previous time period (default true unless interval is set)
 
-### Built in outputs (to be passed in to `->print()`
+### Built in outputs (to be passed in to `->print()`)
 - url - gets the urls used to query keen
 - ascii - prints out an ascii table of the results
+- qo - json representation of the query
+- qs - stringified json representation of the query
+
 
 ### JS API
 Take the above queries, replace the `->` with `.` and put quote marks around any parameters and you have the javascript API.
