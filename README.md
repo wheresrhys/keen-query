@@ -20,7 +20,7 @@ Queries are chainable and don't require any quote marks around values (values wi
 - Must start with the name of an event
 - Must end in `->print({output mode})` if ascii is not the desired output
 - `->count()` counts all the events, `->count(prop)` counts unique based on the given property
-- `->group(prop)` groups results by the given property
+- `->group(prop)` groups results by the given property. If called twice, generates a cross table
 - `->filter()` takes a number of shorthands for keen query filters
 	- prop=val
 	- prop!=val
@@ -38,12 +38,17 @@ Queries are chainable and don't require any quote marks around values (values wi
 - ascii - prints out an ascii table of the results
 - qo - json representation of the query
 - qs - stringified json representation of the query
+- json - json o the results of the query
 
 
 ### JS API
 Take the above queries, replace the `->` with `.` and put quote marks around any parameters and you have the javascript API.
 
 Alternatively, use the strings above exactly as they are by using `require('keen-query').execute(queryString)`
+
+#### Utilities
+
+- KeenQuery.parseFilter(str) - converts a string compatible with the above syntax into a keen filter object
 
 #### Adding additional outputs
 // TODO
