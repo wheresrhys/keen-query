@@ -5,6 +5,27 @@ const program = require('commander');
 const KeenQuery = require('../lib/keen-query');
 
 program
+	.command('print [url]')
+	.description('Converts an existing keen query into keen-query\'s format')
+	.action(function(url) {
+		if (!url) {
+			console.log('No url specified');
+			process.exit(1);
+		}
+		KeenQuery.fromUrl(url)
+			.then(obj => {
+				return obj.print('ascii')
+					.then(str => {
+						console.log(str);
+						process.exit(0)
+					});
+			}, err => {
+				console.log(err);
+				process.exit(1)
+			})
+	});
+
+program
 	.command('convert [url]')
 	.description('Converts an existing keen query into keen-query\'s format')
 	.action(function(url) {
@@ -14,7 +35,7 @@ program
 		}
 		KeenQuery.fromUrl(url)
 			.then(obj => {
-				console.log('\nSuccessfully converted to:\n\n' + obj.toString());
+				console.log('\nSuccessfully converted to:\n\n' + 	obj.toString());
 				process.exit(0)
 			}, err => {
 				console.log(err);

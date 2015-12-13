@@ -16,12 +16,25 @@ Then something like `kq 'page:view->count()'` or `kq 'page:view->count()->print(
 
 `kq convert 'https://... some long keen url'` can be used to convert existing queries to the format below
 
+`kq print 'https://... some long keen url'` can be used to output ascii tables given a keen query url
+
 ### Queries
 
 Queries are chainable and don't require any quote marks around values (values will be heavily type coerced)
 - Must start with the name of an event
 - Must end in `->print({output mode})` if ascii is not the desired output
-- `->count()` counts all the events, `->count(prop)` counts unique based on the given property
+- Must include an extraction type from the following
+	- `->count()` counts all the events,
+	- `->count(prop)` counts unique based on the given property
+//todo
+		Minimum
+		Maximum
+		Sum
+		Average
+		Median
+		Percentile
+		Select Unique
+
 - `->group(prop)` groups results by the given property. If called twice, generates a cross table
 - `->filter()` takes a number of shorthands for keen query filters
 	- prop=val
