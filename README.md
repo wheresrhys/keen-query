@@ -14,6 +14,8 @@ Make sure you have KEEN_READ_KEY and KEEN_PROJECT_ID env vars set
 
 Then something like `kq 'page:view->count()'` or `kq 'page:view->count()->print(url)'` to retrieve the actual keen urls used (it will always return 2 urls: the first for this period, the second for previous)
 
+`kq convert 'https://... some long keen url'` can be used to convert existing queries to the format below
+
 ### Queries
 
 Queries are chainable and don't require any quote marks around values (values will be heavily type coerced)
