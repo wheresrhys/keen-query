@@ -26,14 +26,13 @@ Queries are chainable and don't require any quote marks around values (values wi
 - Must include an extraction type from the following
 	- `->count()` counts all the events,
 	- `->count(prop)` counts unique based on the given property
-//todo
-		Minimum
-		Maximum
-		Sum
-		Average
-		Median
-		Percentile
-		Select Unique
+	- `->min(prop)`
+	- `->max(prop)`
+	- `->sum(prop)`
+	- `->avg(prop)`
+	- `->med(prop)`
+	- `->pct(prop,pct)`
+	- `->unique(prop)` select unique
 
 - `->group(prop)` groups results by the given property. If called twice, generates a cross table
 - `->filter()` takes a number of shorthands for keen query filters
@@ -46,7 +45,7 @@ Queries are chainable and don't require any quote marks around values (values wi
 	- prop (prop exists)
 	- !prop (prop doesn't exist)
 - `->time(period, interval)` e.g time(6,h) = this 6 days, hourly interval, time(5_hours,m) = this 5 hours, minutely interval, time(22_months) = this 22 months as a single figure
-- `->compare()` - Will compare with the previous time period (default true unless interval is set)
+- TODO: `->compare()` - Will compare with the previous time period (default true unless interval is set)
 
 ### Built in outputs (to be passed in to `->print()`)
 - url - gets the urls used to query keen
