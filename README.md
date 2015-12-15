@@ -33,9 +33,9 @@ Queries are chainable and don't require any quote marks around values (values wi
 	- `->med(prop)`
 	- `->pct(prop,pct)`
 	- `->unique(prop)` select unique
-
 - `->group(prop)` groups results by the given property. If called twice, generates a cross table
 - `->flip()` when group is called twice, or interval exists, switches which property forms the columns and which the rows
+- `raw()` Extensions built on top of keen query may force evry query to include some functions e.g. `user.isStaff=false`. calling `raw()` will suppress these
 - `->filter()` takes a number of shorthands for keen query filters
 	- prop=val
 	- prop!=val
@@ -63,6 +63,8 @@ Alternatively, use the strings above exactly as they are by using `require('keen
 #### Utilities
 
 - KeenQuery.parseFilter(str) - converts a string compatible with the above syntax into a keen filter object
+- KeenQuery.forceQuery(func) - the function will be run as part of every query. Useful for e.g. excluding test data from results
+- KeenQuery.defineQuery(name, func) - defines a method `name` which can be used as part of a keen-query string or in the js api.
 
 #### Adding additional outputs
 // TODO
