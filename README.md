@@ -35,6 +35,7 @@ Queries are chainable and don't require any quote marks around values (values wi
 	- `->unique(prop)` select unique
 
 - `->group(prop)` groups results by the given property. If called twice, generates a cross table
+- `->flip()` when group is called twice, or interval exists, switches which property forms the columns and which the rows
 - `->filter()` takes a number of shorthands for keen query filters
 	- prop=val
 	- prop!=val
@@ -45,7 +46,6 @@ Queries are chainable and don't require any quote marks around values (values wi
 	- prop (prop exists)
 	- !prop (prop doesn't exist)
 - `->time(period, interval)` e.g time(6,h) = this 6 days, hourly interval, time(5_hours,m) = this 5 hours, minutely interval, time(22_months) = this 22 months as a single figure
-- TODO: `->compare()` - Will compare with the previous time period (default true unless interval is set)
 
 ### Built in outputs (to be passed in to `->print()`)
 - url - gets the urls used to query keen
