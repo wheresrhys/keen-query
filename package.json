@@ -6,7 +6,6 @@
   "dependencies": {
     "ascii-table": "^0.0.8",
     "commander": "^2.9.0",
-    "fetchres": "^1.5.1",
     "isomorphic-fetch": "^2.2.0"
   },
   "bin": {
