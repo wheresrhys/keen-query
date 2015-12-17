@@ -46,6 +46,7 @@ Queries are chainable and don't require any quote marks around values (values wi
 	- prop (prop exists)
 	- !prop (prop doesn't exist)
 - `->time(period, interval)` e.g time(6,h) = this 6 days, hourly interval, time(5_hours,m) = this 5 hours, minutely interval, time(22_months) = this 22 months as a single figure
+- `->compare()` Side by side comparison of this time period's data with the previous one (incompatible with setting a time interval)
 
 ### Built in outputs (to be passed in to `->print()`)
 - url - gets the urls used to query keen
