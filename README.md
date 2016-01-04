@@ -32,7 +32,7 @@ Queries are chainable and don't require any quote marks around values (values wi
 	- `->avg(prop)`
 	- `->med(prop)`
 	- `->pct(prop,pct)`
-	- `->unique(prop)` select unique
+	- `->select(prop)` select unique
 - `->group(prop)` groups results by the given property. If called twice, generates a cross table
 - `->flip()` when group is called twice, or interval exists, switches which property forms the columns and which the rows
 - `raw()` Extensions built on top of keen query may force evry query to include some functions e.g. `user.isStaff=false`. calling `raw()` will suppress these
