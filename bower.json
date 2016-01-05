@@ -1,0 +1,21 @@
+{
+  "name": "keen-query",
+  "description": "",
+  "main": "lib/keen-query.js",
+  "authors": [
+    "Rhys Evans <rhys.evans@ft.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Financial-Times/keen-query",
+  "moduleType": [],
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
