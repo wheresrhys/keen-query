@@ -1,6 +1,6 @@
 {
   "name": "keen-query",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "",
   "main": "lib/keen-query.js",
   "dependencies": {
@@ -12,9 +12,15 @@
     "keen-query": "./bin/keen-query.js",
     "kq": "./bin/keen-query.js"
   },
-  "devDependencies": {},
+  "browser": "es5/keen-query.js",
+  "devDependencies": {
+    "babel": "^6.0.15",
+    "babel-cli": "^6.1.2",
+    "babel-preset-es2015": "^6.1.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "babel lib --out-dir es5 --presets es2015"
   },
   "repository": {
     "type": "git",
