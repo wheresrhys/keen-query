@@ -9,7 +9,8 @@
   "homepage": "https://github.com/Financial-Times/keen-query",
   "moduleType": [],
   "dependencies": {
-    "isomorphic-fetch": "^2.2.0"
+    "isomorphic-fetch": "^2.2.0",
+    "moment": "^2.11.0"
   },
   "ignore": [
     "**/.*",
