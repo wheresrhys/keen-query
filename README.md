@@ -48,7 +48,11 @@ Queries are chainable and don't require any quote marks around values (values wi
 - `->relTime(period, interval)` e.g. relTime(6,h) = this 6 days, hourly interval, relTime(5_hours,m) = this 5 hours, minutely interval, relTime(22_months) = this 22 months as a single figure
 - `->absTime(start, end, interval)` e.g. absTime(new Date(new Date() - 8640000), new Date()) = the last 24 hours as a single figure, absTime(new Date(new Date() - 8640000), new Date(), m) = the last 24 hours, minutely interval
 - `->time(period, interval)` alias for relTime
-- `->compare()` Side by side comparison of this time period's data with the previous one (incompatible with setting a time interval)
+- `->time(period, interval)` e.g time(6,h) = this 6 days, hourly interval, time(5_hours,m) = this 5 hours, minutely interval, time(22_months) = this 22 months as a single figure, time(prev_5_hours,m)
+- `->prev()` Show the previous tiem interval
+
+
+Complex analyses combining multiple queries are also possible (be warned - despite the queries happening in parallel this can be slow)
 
 ### Built in outputs (to be passed in to `->print()`)
 - url - gets the urls used to query keen
