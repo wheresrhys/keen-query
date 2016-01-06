@@ -6,7 +6,8 @@
   "dependencies": {
     "ascii-table": "^0.0.8",
     "commander": "^2.9.0",
-    "isomorphic-fetch": "^2.2.0"
+    "isomorphic-fetch": "^2.2.0",
+    "moment": "^2.11.0"
   },
   "bin": {
     "keen-query": "./bin/keen-query.js",
