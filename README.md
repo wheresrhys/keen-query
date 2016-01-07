@@ -48,7 +48,24 @@ Queries are chainable and don't require any quote marks around values (values wi
 - `->relTime(period, interval)` e.g. relTime(6,h) = this 6 days, hourly interval, relTime(5_hours,m) = this 5 hours, minutely interval, relTime(22_months) = this 22 months as a single figure
 - `->absTime(start, end, interval)` e.g. absTime(new Date(new Date() - 8640000), new Date()) = the last 24 hours as a single figure, absTime(new Date(new Date() - 8640000), new Date(), m) = the last 24 hours, minutely interval
 - `->time(period, interval)` alias for relTime
-- `->compare()` Side by side comparison of this time period's data with the previous one (incompatible with setting a time interval)
+- `->time(period, interval)` e.g time(6,h) = this 6 days, hourly interval, time(5_hours,m) = this 5 hours, minutely interval, time(22_months) = this 22 months as a single figure, time(prev_5_hours,m)
+- `->prev()` Show the previous tiem interval
+
+'>
+
+### Aggregations
+
+Queries can be aggregated by wrapping in the following syntax (assume q1, q2 etc are valid query strings).
+
+When the aggregation accepts more than one query in its definition, to ensure all queries return identically structured data it's wise to configure interval, timeframe and grouping after aggregating the individual queries e.g. `@aggregate(q1,q2,q3)->interval(w)->group(meta.thing)` (where each of q1, q2, q3 only define collections and filters)
+
+- `@ratio(q1!/q2)` - calculates the ratio between the values returned by two queries.
+- `@comparePast(q)` - compares values with those from previous timeframe
+- TODO `@concat(q1!..q2!..q3)` - puts the results of the queries side by side in a single table (accepts an unlimited number of queries)
+- `@reduce(q,param)` - reduces values to a summary value. Vlues accepted as param are `avg`, `min`, `max`, `median` and `all` (which will return a table of the results of each reduction)
+- TODO `@funnel(q1!..q2!..q3)` - calculates funnel conversion rates for the given queries
+
+Complex analyses combining multiple queries are also possible (be warned - despite the queries happening in parallel this can be slow)
 
 ### Built in outputs (to be passed in to `->print()`)
 - url - gets the urls used to query keen
