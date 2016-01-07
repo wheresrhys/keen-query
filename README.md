@@ -72,7 +72,10 @@ Complex analyses combining multiple queries are also possible (be warned - despi
 - ascii - prints out an ascii table of the results
 - qo - json representation of the query
 - qs - stringified json representation of the query
-- json - json o the results of the query
+- raw - the raw json response
+- json - Normalised json of the response (a 2 dimensional matrix with headings)
+
+use `.definePrinter(name, func)` to define your own printers, which will be pased the raw json data. printers are called with `this` referencing the current KeenQuery object. `this.tabulate(data)` will convert the raw json to a normalised table
 
 
 ### JS API
