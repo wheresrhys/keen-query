@@ -62,7 +62,7 @@ When the aggregation accepts more than one query in its definition, to ensure al
 - `@ratio(q1!/q2)` - calculates the ratio between the values returned by two queries.
 - `@comparePast(q)` - compares values with those from previous timeframe
 - TODO `@concat(q1!..q2!..q3)` - puts the results of the queries side by side in a single table (accepts an unlimited number of queries)
-- `@reduce(q,param)` - reduces values to a summary value. Vlues accepted as param are `avg`, `min`, `max`, `median` and `all` (which will return a table of the results of each reduction)
+- `@reduce(q,param)` - reduces values to a summary value. Vlues accepted as param are `avg`, `min`, `max`, `median` and `all` (which will return a table of the results of each reduction). note - this is different to just using the single query equivalents as they allow e.g. getting the average of daily totals rather than an average of individual values
 - TODO `@funnel(q1!..q2!..q3)` - calculates funnel conversion rates for the given queries
 
 Complex analyses combining multiple queries are also possible (be warned - despite the queries happening in parallel this can be slow)
