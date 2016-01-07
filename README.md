@@ -41,8 +41,8 @@ Queries are chainable and don't require any quote marks around values (values wi
 	- prop!=val
 	- prop>val
 	- prop<val
-	- prop>>val (val is contained in prop)
-	- prop<<vals (prop is contained in comma separated list of vals)
+	- prop~val (val is contained in prop)
+	- prop?vals (prop is contained in comma separated list of vals)
 	- prop (prop exists)
 	- !prop (prop doesn't exist)
 - `->relTime(period, interval)` e.g. relTime(6,h) = this 6 days, hourly interval, relTime(5_hours,m) = this 5 hours, minutely interval, relTime(22_months) = this 22 months as a single figure
