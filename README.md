@@ -81,7 +81,7 @@ use `.definePrinter(name, func)` to define your own printers, which will be pase
 ### JS API
 Take the above queries, replace the `->` with `.` and put quote marks around any parameters and you have the javascript API.
 
-Alternatively, use the strings above exactly as they are by using `require('keen-query').execute(queryString)`
+Alternatively, use the strings above exactly as they are by using `require('keen-query').execute(queryString)` (or `require('keen-query').build(queryString)` to build the query object without executing immediately (run `.print()` to execute))
 
 #### Utilities
 
