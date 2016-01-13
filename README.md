@@ -2,9 +2,11 @@
 
 Concise javascript API and cli for querying and performing advanced analysis on keen data.
 
-#Usage
+# Usage
 
-## cli
+## Running queries
+
+### cli
 
 `npm install -g Financial-Times/keen-query`
 
