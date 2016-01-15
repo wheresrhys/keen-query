@@ -6,6 +6,7 @@ function build (queryConf) {
 	if (typeof queryConf === 'string') {
 		queryConf = parser(queryConf);
 	}
+	console.log(queryConf)
 	if (queryConf.aggregator) {
 		console.log('Running aggregate query:', queryConf.str);
 		// TODO create an aggregate wrapper
@@ -25,7 +26,7 @@ const logO = obj => {
 	console.log(JSON.stringify(obj, null, '\t'));
 }
 
-logO(build('page:view->count(apples)->filter(\'pickle\')'))
+logO(build('page:view->count(apples)->filter(\'pickle\')->print(red)'))
 logO(build('@ratio(page:view->count(apples),page:view->filter(\'pickle\'))->group(lobs)'))
 logO(build('@ratio(page:view->count(apples),@concat(page:view->filter(\'pickle\'),page:view->filter(\'apple\')))->group(lobs)'))
 
