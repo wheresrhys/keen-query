@@ -18,9 +18,9 @@ test-reduce:
 	node ./bin/keen-query.js '@ratio(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)->reduce(avg)'
 
 test-select:
-	node ./bin/keen-query.js 'cta->select(page.location.type)->relTime(30_minutes)->relTime(3)'
-	node ./bin/keen-query.js 'cta->select(page.location.type)->relTime(30_minutes)->group(user.isStaff)->relTime(3)'
-	node ./bin/keen-query.js 'cta->select(page.location.type)->relTime(30_minutes)->interval(d)->relTime(3)'
-	node ./bin/keen-query.js 'cta->select(page.location.type)->relTime(30_minutes)->interval(d)->group(user.isStaff)->relTime(3)'
+	node ./bin/keen-query.js 'cta->select(page.location.type)->relTime(30_minutes)'
+	node ./bin/keen-query.js 'cta->select(page.location.type)->relTime(30_minutes)->group(user.isStaff)'
+	node ./bin/keen-query.js 'cta->select(page.location.type)->relTime(30_minutes)->interval(m)'
+	node ./bin/keen-query.js 'cta->select(page.location.type)->relTime(30_minutes)->interval(m)->group(user.isStaff)'
 
 test: test-query test-ratio test-reduce test-select
