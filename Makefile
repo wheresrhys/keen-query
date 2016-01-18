@@ -23,3 +23,10 @@ test-ratio:
 # 	node ./bin/keen-query.js 'cta->select(page.location.type)->relTime(30_minutes)->interval(d)->group(user.isStaff)->relTime(3)'
 
 test: test-query test-ratio test-reduce test-select
+
+
+testr:
+	node ./bin/keen-query.js 'cta->count()->interval(d)->group(page.location.type)->relTime(3)'
+	node ./bin/keen-query.js 'cta->count(user.uuid)->interval(d)->group(page.location.type)->relTime(3)'
+	node ./bin/keen-query.js '@ratio(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)'
+
