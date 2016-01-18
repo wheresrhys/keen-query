@@ -2,7 +2,7 @@
   "name": "keen-query",
   "version": "1.4.4",
   "description": "",
-  "main": "lib/keen-query.js",
+  "main": "lib/index.js",
   "dependencies": {
     "ascii-table": "^0.0.8",
     "commander": "^2.9.0",
