@@ -1,7 +1,7 @@
 {
   "name": "keen-query",
   "description": "",
-  "main": "lib/keen-query.js",
+  "main": "lib/index.js",
   "authors": [
     "Rhys Evans <rhys.evans@ft.com>"
   ],
