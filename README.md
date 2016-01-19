@@ -116,50 +116,93 @@ By default data is returned for `this_14_days`
 | From start to end times | `->absTime(start,end)` | `kq.absTime(start, end)` |
 
 
+### Post processing data
 
-// TODO - rewrite all the below
+A numbe of additional methods can be sued to aggregate, reduce, or otherwise manipulate the results of a keen query. They can be combined in all sorts of weird and wonderful ways (e.g. calculate a ratio of two tables, reduce to a single column, then concatenate with the original values) - be careful you're not generating nonsense data!
 
-### Selecting output type
+**Note on specifying dimensions**
+Some methods expect a dimension to be specified e.g to choose between taking an average across rows or columns. The value of dimension can be
+ - `timeframe` or the name of a property that has been grouped by
+ - a positive integer (0 indexed) to refer dirctly to a given dimension e.g in a table plotting count against time, a value of `1` would pick out the time dimension. Dimensions are added in the same order the methods creating them are called so e.g. `->interval(d)->group(uuid)` would have `timeframe` as the 0th dimension, `uuid` as the 1st;
 
-- Must end in `->print({output mode})` if ascii is not the desired output
+#### Aggregators
 
-Built in outputs:
+These combine multiple keen-queries using a perdefined rule. They follow the syntax `@agregatorName(comma separated list of queries)`. So far they are not available In the JS API, and include:
 
-- url - gets the urls used to query keen
-- ascii - prints out an ascii table of the results
-- qo - json representation of the query
-- qs - stringified json representation of the query
-- raw - the raw json response
-- json - Normalised json of the response (a 2 dimensional matrix with headings)
+- `@ratio` - Given two queries returning results with identical structure, it returns a new table where the values are the result of dividing the value in the first table with its corresponding value n the second
+- `@concat` - **TODO (please request)** Given n queries returning results with similar structure, it combines them into a single table by concatenating the columns of each table
+- `@funnel` - **TODO**
 
-use `.definePrinter(name, func)` to define your own printers, which will be pased the raw json data. printers are called with `this` referencing the current KeenQuery object. `this.tabulate(data)` will convert the raw json to a normalised table
+Aggregations must be created using `KeenQuery.build()`, which returns an object with the same interface as a `KeenQuery` instance, so reductions can be performed on it.
+
+#### Reductions
+
+These allow values to be combined according to well known mathematical functions
+
+| Function | String | JS API |
+| ------------- |-------------| -----|
+| Average of values | `->reduce(avg,timeframe)` | `kq.reduce('avg','timeframe')` |
+| Minimum value | `->reduce(min,timeframe)` | `kq.reduce('min','timeframe')` |
+| Maximum value | `->reduce(max,timeframe)` | `kq.reduce('max','timeframe')` |
+| Median value | `->reduce(median,timeframe)` | `kq.reduce('median','timeframe')` |
+| Trend (linear regression gradient) | `->reduce(trend,timeframe)` | `kq.reduce('trend','timeframe')` |
+
+#### Other
+
+- `->round(n)` Rounds values to n decimal places. if n is negative rounds to the nearest 10, 100, 1000 etc...
+- `sort(dimension, value)` **TODO (please request)**
+
+### Outputting data
+
+There are a few built in methods for outputting data
+
+| Output | String | JS API |
+| ------------- |-------------| -----|
+| Returns the url(s) used to query keen | `->print(url)` | `kq.print('url') |
+| JSON representation of the query | `->print(qo)` | `kq.print('qo') |
+| Stringified JSON representation of the query | `->print(qs)` | `kq.print('qs') |
+| The raw JSON response(s) from keen | `->print(raw)` | `kq.print('raw') |
+| Normalised JSON of the response (a 2 dimensional matrix with headings) | `->print(json)` | `kq.print('json') |
+| Prints out an ascii table of the results | `->print(ascii)` | `kq.print('ascii') |
+
+`KeenQuery.definePrinter(name, func)` can be used to define your own printers (e.g. to output a graph to the DOM). Within `func`, `this` will point at the current KeenQuery instance, and `this.getTable()` will give access to an object with the following properties and methods:
+
+*NOTE - the intention is for these objects to be immutable. If you find an instance of a method that mutates the original table it's a bug - **don't rely on the behaviour and please report** *
+
+- `data` - property holding all the data retrieved in an n-dimensional matrix constructed of arrays nested n deep
+- axes - names and value sfor axes of the
+ table
+- `dimension` - property holding the number of dimensions of the table (i.e. by how many things is data grouped by)
+- `size` - property holding an array representing the size of the table e.g. if grouped by `eye.colour` and `hair.colour` and there are 4 possible values for eye colour and 6 for hair colour it will return `[4, 6]`
+- `getAxis (name)` - returns the dimension in which a given grouping is held, e.g. in the above example `getAxis('eye')` would return 0, `getAxis('hair')` would return 1
+- `convertTime (format)` - converts all timeframe objects to the given format Accepted values are
+	- ISO - ISO strings
+	- shortISO - ISO strings with unecessary fine-grainedness removed
+	- human - human readable strings representing the timeframe
+	- shortest - shortest possible human readable strings containig enough information to identify the time range
+- `humanize (timeFormat)` - converts the table (where possible) to an object of the following format
+
+  ```
+  {
+  	headings: ['array', 'of', 'column', 'headings',
+  	rows: [[], [], []] // rows of data, including row headings in the first position of each sub array
+ 	}
+ 	```
+- `cellIterator (func, endDepth)` - Iterates a function over each cell in the table *TODO - known bug. need to change to being immutable*
+- `switchDimensions (a, b, method)` - switches two dimensions e.g. swaps rows for columns
+   - a - index/name of the first dimension to move (default 0)
+   - b - index/name of the second dimension to move (default: the deepest dimension of the table)
+   - method - when a or b are their default values, setting method to `shuffle` will move the dimension to be the first/last, and shuffle all other dimesnions along to make room, as opposed to swapping the a/bth dimension with the first/last
+
+- `plot(coords, val)` - data is stored in an n-dimensional matrix. plot places a value in th position specified by coords
 
 
-### Aggregations
-
-Queries can be aggregated by wrapping in the following syntax (assume q1, q2 etc are valid query strings).
-
-When the aggregation accepts more than one query in its definition, to ensure all queries return identically structured data it's wise to configure interval, timeframe and grouping after aggregating the individual queries e.g. `@aggregate(q1,q2,q3)->interval(w)->group(meta.thing)` (where each of q1, q2, q3 only define collections and filters)
-
-- `@ratio(q1!/q2)` - calculates the ratio between the values returned by two queries.
-- `@comparePast(q)` - compares values with those from previous timeframe
-- TODO `@concat(q1!..q2!..q3)` - puts the results of the queries side by side in a single table (accepts an unlimited number of queries)
-- `@reduce(q,param)` - reduces values to a summary value. Vlues accepted as param are `avg`, `min`, `max`, `median` and `all` (which will return a table of the results of each reduction). note - this is different to just using the single query equivalents as they allow e.g. getting the average of daily totals rather than an average of individual values
-- TODO `@funnel(q1!..q2!..q3)` - calculates funnel conversion rates for the given queries
-
-Complex analyses combining multiple queries are also possible (be warned - despite the queries happening in parallel this can be slow)
+the keen data with all aggregations, reductiosn etc. already applied.
 
 
-### JS API
-Take the above queries, replace the `->` with `.` and put quote marks around any parameters and you have the javascript API.
 
-Alternatively, use the strings above exactly as they are by using `require('keen-query').execute(queryString)` (or `require('keen-query').build(queryString)` to build the query object without executing immediately (run `.print()` to execute))
-
-#### Utilities
+### Utilities
 
 - KeenQuery.parseFilter(str) - converts a string compatible with the above syntax into a keen filter object
 - KeenQuery.forceQuery(func) - the function will be run as part of every query. Useful for e.g. excluding test data from results
 - KeenQuery.defineQuery(name, func) - defines a method `name` which can be used as part of a keen-query string or in the js api.
-
-#### Adding additional outputs
-// TODO
