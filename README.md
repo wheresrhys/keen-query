@@ -147,6 +147,7 @@ These allow values to be combined according to well known mathematical functions
 | Maximum value | `->reduce(max,timeframe)` | `kq.reduce('max','timeframe')` |
 | Median value | `->reduce(median,timeframe)` | `kq.reduce('median','timeframe')` |
 | Trend (linear regression gradient) | `->reduce(trend,timeframe)` | `kq.reduce('trend','timeframe')` |
+| Percent change - % up/down in last 2 values | `->reduce(%change,timeframe)` | `kq.reduce('%change','timeframe')` |
 
 #### Other
 
