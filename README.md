@@ -130,7 +130,8 @@ Some methods expect a dimension to be specified e.g to choose between taking an 
 
 These combine multiple keen-queries using a perdefined rule. They follow the syntax `@agregatorName(comma separated list of queries)`. So far they are not available In the JS API, and include:
 
-- `@ratio` - Given two queries returning results with identical structure, it returns a new table where the values are the result of dividing the value in the first table with its corresponding value n the second
+- `@ratio` - Given two queries returning results with identical structure, it returns a new table where the values are the result of dividing the value in the first table with its corresponding value in the second
+- `@sum` - Given two queries returning results with identical structure, it returns a new table where the values are the result of adding the value in the first table to its corresponding value in the second
 - `@concat` - **TODO (please request)** Given n queries returning results with similar structure, it combines them into a single table by concatenating the columns of each table
 - `@funnel` - **TODO**
 
