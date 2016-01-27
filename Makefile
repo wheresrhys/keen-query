@@ -32,4 +32,7 @@ test-select:
 	node ./bin/keen-query.js 'cta->select(page.location.type)->relTime(30_minutes)->interval(m)'
 	node ./bin/keen-query.js 'cta->select(page.location.type)->relTime(30_minutes)->interval(m)->group(user.isStaff)'
 
+test-reusability:
+	mocha test/reusability.test.js
+
 test: test-query test-ratio test-reduce test-select
