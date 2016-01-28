@@ -26,5 +26,9 @@
   "bugs": {
     "url": "https://github.com/Financial-Times/keen-query/issues"
   },
-  "homepage": "https://github.com/Financial-Times/keen-query#readme"
+  "homepage": "https://github.com/Financial-Times/keen-query#readme",
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.4.2"
+  }
 }
