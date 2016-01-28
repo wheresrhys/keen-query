@@ -35,4 +35,4 @@ test-select:
 test-reusability:
 	mocha test/reusability.test.js
 
-test: test-query test-ratio test-reduce test-select
+test: test-query test-ratio test-reduce test-select test-reusability
