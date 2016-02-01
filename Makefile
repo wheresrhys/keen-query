@@ -1,6 +1,7 @@
 .PHONY: test
 
 test-query:
+	node ./bin/keen-query.js 'cta->count(user.uuid)->relTime(3)'
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->relTime(3)'
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->interval(d)->group(page.location.type)->relTime(3)';
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->interval(day)->group(page.location.type)->relTime(3)';
