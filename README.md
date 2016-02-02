@@ -95,6 +95,7 @@ Data can be grouped by as many properties as required, as well as by time interv
 | Group data per year | `->interval(y)` | `kq.interval('y')` |
 | Group data by value of page.type | `->group(page.type)` | `kq.group('page.type')` |
 | Group data by multiple properties | `->group(page.type,user.isStaff)` | `kq.group('page.type', 'user.isStaff')` |
+| Exclude null values | `->tidy()` | `kq.tidy()` |
 
 Instead of shorthands, `minute`, `hour`, `day`, `week`, `month` or `year` can now also be used
 ### Selecting time range
