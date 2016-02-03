@@ -132,6 +132,7 @@ Some methods expect a dimension to be specified e.g to choose between taking an 
 These combine multiple keen-queries using a perdefined rule. They follow the syntax `@agregatorName(comma separated list of queries)`. So far they are not available In the JS API, and include:
 
 - `@ratio` - Given two queries returning results with identical structure, it returns a new table where the values are the result of dividing the value in the first table with its corresponding value in the second
+- `@pct` - as above but expressed as a percentage
 - `@sum` - Given two queries returning results with identical structure, it returns a new table where the values are the result of adding the value in the first table to its corresponding value in the second
 - `@concat` - **TODO (please request)** Given n queries returning results with similar structure, it combines them into a single table by concatenating the columns of each table
 - `@funnel` - **TODO**
@@ -155,6 +156,7 @@ These allow values to be combined according to well known mathematical functions
 
 - `->round(n)` Rounds values to n decimal places. if n is negative rounds to the nearest 10, 100, 1000 etc...
 - `sort(dimension, value)` **TODO (please request)**
+- `multiply(n)` Multiplies each value by `n`
 
 ### Outputting data
 
@@ -197,8 +199,6 @@ There are a few built in methods for outputting data
    - a - index/name of the first dimension to move (default 0)
    - b - index/name of the second dimension to move (default: the deepest dimension of the table)
    - method - when a or b are their default values, setting method to `shuffle` will move the dimension to be the first/last, and shuffle all other dimesnions along to make room, as opposed to swapping the a/bth dimension with the first/last
-
-- `plot(coords, val)` - data is stored in an n-dimensional matrix. plot places a value in th position specified by coords
 
 
 the keen data with all aggregations, reductiosn etc. already applied.
