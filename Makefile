@@ -7,6 +7,7 @@ test-query:
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->interval(day)->group(page.location.type)->relTime(3)';
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->group(page.location.type,user.isStaff)->relTime(3)';
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->group(page.location.type,user.isStaff)->relTime(3)->round()';
+	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->interval(2_d)->relTime(6)';
 
 test-ratio:
 	node ./bin/keen-query.js '@ratio(cta->count(),cta->count(user.uuid))->relTime(3)'
