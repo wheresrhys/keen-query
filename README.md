@@ -93,6 +93,7 @@ Data can be grouped by as many properties as required, as well as by time interv
 | Group data per week | `->interval(w)` | `kq.interval('w')` |
 | Group data per month | `->interval(mo)` | `kq.interval('mo')` |
 | Group data per year | `->interval(y)` | `kq.interval('y')` |
+| Group fortnightly | `->interval(2_w)` | `kq.interval('2_w')` |
 | Group data by value of page.type | `->group(page.type)` | `kq.group('page.type')` |
 | Group data by multiple properties | `->group(page.type,user.isStaff)` | `kq.group('page.type', 'user.isStaff')` |
 | Exclude null values | `->tidy()` | `kq.tidy()` |
