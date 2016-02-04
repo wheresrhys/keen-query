@@ -10,7 +10,7 @@ describe('generating URLS for keen-query: API', () => {
 		const kq = KeenQuery.build('page:view->count()')
 		return kq.print('url')
 			.then(res => {
-				expect(res).to.contain('&event_collection=page%3Aview')
+				expect(res).to.contain('event_collection=page%3Aview')
 			})
 	})
 
@@ -20,7 +20,7 @@ describe('generating URLS for keen-query: API', () => {
 
 		return kq.print('url')
 			.then(res => {
-				expect(res).to.contain('&timeframe=this_1_years')
+				expect(res).to.contain('timeframe=this_1_years')
 			})
 	})
 
@@ -30,7 +30,7 @@ describe('generating URLS for keen-query: API', () => {
 
 		return kq.print('url')
 			.then(res => {
-				expect(res).to.contain('&interval=monthly')
+				expect(res).to.contain('interval=monthly')
 			})
 	})
 
@@ -40,7 +40,7 @@ describe('generating URLS for keen-query: API', () => {
 
 		return kq.print('url')
 			.then(res => {
-				expect(res).to.contain('&filters=%5B%7B%22property_name%22%3A%22user.uuid%22%2C%22operator%22%3A%22exists%22%2C%22property_value%22%3Atrue%7D%5D')
+				expect(res).to.contain('filters=%5B%7B%22property_name%22%3A%22user.uuid%22%2C%22operator%22%3A%22exists%22%2C%22property_value%22%3Atrue%7D%5D')
 			})
 	})
 
@@ -50,9 +50,18 @@ describe('generating URLS for keen-query: API', () => {
 
 		return kq.print('url')
 			.then(res => {
-				expect(res).to.contain('&group_by=user.geo.continent')
+				expect(res).to.contain('group_by=user.geo.continent')
 			})
 	})
+
+	it('should have api-compatible urls for unique_count queries', () => {
+		const kq = KeenQuery.build('page:view->count(user.uuid)')
+		return kq.print('url')
+			.then(res => {
+				expect(res).to.contain('analysis_type=count_unique&target_property=user.uuid')
+			})
+	})
+
 })
 
 /* Keen explorer */
@@ -72,7 +81,7 @@ describe('generating URLS for keen-query: Explorer', () => {
 
 		return kq.print('explorer-url')
 			.then(res => {
-				expect(res).to.contain('&query[timeframe]=this_1_years')
+				expect(res).to.contain('query[timeframe]=this_1_years')
 			})
 	})
 
@@ -82,7 +91,7 @@ describe('generating URLS for keen-query: Explorer', () => {
 
 		return kq.print('explorer-url')
 			.then(res => {
-				expect(res).to.contain('&query[interval]=monthly')
+				expect(res).to.contain('query[interval]=monthly')
 			})
 	})
 
@@ -92,7 +101,7 @@ describe('generating URLS for keen-query: Explorer', () => {
 
 		return kq.print('explorer-url')
 			.then(res => {
-				expect(res).to.contain('&query[filters][0]=user.uuid&query[filters][0]=exists&query[filters][0]=true')
+				expect(res).to.contain('query[filters][0]=user.uuid&query[filters][0]=exists&query[filters][0]=true')
 			})
 	})
 
@@ -102,7 +111,15 @@ describe('generating URLS for keen-query: Explorer', () => {
 
 		return kq.print('explorer-url')
 			.then(res => {
-				expect(res).to.contain('&query[group_by]=user.geo.continent')
+				expect(res).to.contain('query[group_by]=user.geo.continent')
+			})
+	})
+
+	it('should have explorer-compatible urls for unique_count queries', () => {
+		const kq = KeenQuery.build('page:view->count(user.uuid)')
+		return kq.print('explorer-url')
+			.then(res => {
+				expect(res).to.contain('query[analysis_type]=count_unique&query[target_property]=user.uuid')
 			})
 	})
 })
