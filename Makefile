@@ -37,4 +37,7 @@ test-select:
 test-reusability:
 	mocha test/reusability.test.js
 
-test: test-query test-ratio test-reduce test-select test-reusability
+test-keen-urls:
+	mocha test/keen-urls.test.js
+
+test: test-query test-ratio test-reduce test-select test-reusability test-keen-urls
