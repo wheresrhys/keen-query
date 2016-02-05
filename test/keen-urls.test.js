@@ -64,62 +64,45 @@ describe('generating URLS for keen-query: API', () => {
 
 })
 
+
 /* Keen explorer */
 describe('generating URLS for keen-query: Explorer', () => {
 
 	it('should have explorer-compatible urls for basic queries', () => {
 		const kq = KeenQuery.build('page:view->count()')
-		return kq.print('explorer-url')
-			.then(res => {
-				expect(res).to.contain('query[analysis_type]=count&query[event_collection]=page%3Aview')
-			})
+		expect(kq.generateKeenUrl('/testing?','explorer')).to.contain('query[analysis_type]=count&query[event_collection]=page%3Aview')
 	})
 
 	it('should have explorer-compatible urls for timeframed queries', () => {
 		const kq = KeenQuery.build('page:view->count()')
 			.relTime('this_1_years')
 
-		return kq.print('explorer-url')
-			.then(res => {
-				expect(res).to.contain('query[timeframe]=this_1_years')
-			})
+		expect(kq.generateKeenUrl('/testing?','explorer')).to.contain('query[timeframe]=this_1_years')
 	})
 
 	it('should have explorer-compatible urls for intervalled queries', () => {
 		const kq = KeenQuery.build('page:view->count()')
 			.interval('month')
 
-		return kq.print('explorer-url')
-			.then(res => {
-				expect(res).to.contain('query[interval]=monthly')
-			})
+		expect(kq.generateKeenUrl('/testing?','explorer')).to.contain('query[interval]=monthly')
 	})
 
 	it('should have explorer-compatible urls for filtered queries', () => {
 		const kq = KeenQuery.build('page:view->count()')
 			.filter('user.uuid')
 
-		return kq.print('explorer-url')
-			.then(res => {
-				expect(res).to.contain('query[filters][0]=user.uuid&query[filters][0]=exists&query[filters][0]=true')
-			})
+		expect(kq.generateKeenUrl('/testing?','explorer')).to.contain('query[filters][0]=user.uuid&query[filters][0]=exists&query[filters][0]=true')
 	})
 
 	it('should have explorer-compatible urls for grouped queries', () => {
 		const kq = KeenQuery.build('page:view->count()')
 			.group('user.geo.continent')
 
-		return kq.print('explorer-url')
-			.then(res => {
-				expect(res).to.contain('query[group_by]=user.geo.continent')
-			})
+		expect(kq.generateKeenUrl('/testing?','explorer')).to.contain('query[group_by]=user.geo.continent')
 	})
 
 	it('should have explorer-compatible urls for unique_count queries', () => {
 		const kq = KeenQuery.build('page:view->count(user.uuid)')
-		return kq.print('explorer-url')
-			.then(res => {
-				expect(res).to.contain('query[analysis_type]=count_unique&query[target_property]=user.uuid')
-			})
+		expect(kq.generateKeenUrl('/testing?','explorer')).to.contain('query[analysis_type]=count_unique&query[target_property]=user.uuid')
 	})
 })
