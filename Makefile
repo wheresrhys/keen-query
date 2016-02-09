@@ -40,4 +40,5 @@ test-reusability:
 test-keen-urls:
 	mocha test/keen-urls.test.js
 
-test: test-query test-ratio test-reduce test-select test-reusability test-keen-urls
+test: test-reusability test-keen-urls
+	nbt verify --skip-layout-checks
