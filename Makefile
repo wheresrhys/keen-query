@@ -40,5 +40,8 @@ test-reusability:
 test-keen-urls:
 	mocha test/keen-urls.test.js
 
-test: test-reusability test-keen-urls
+install:
+	npm install
+
+test:
 	nbt verify --skip-layout-checks
