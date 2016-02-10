@@ -40,6 +40,9 @@ test-reusability:
 test-keen-urls:
 	mocha test/keen-urls.test.js
 
+test-err:
+	node ./bin/keen-query.js '@pct(site:optout->count(user.uuid)->group(device.oGridLayout),page:view->count(user.uuid)->group(device.oGridLayout)->filter(device.oGridLayout?L,M))->round()->interval(d)'
+
 install:
 	npm install
 

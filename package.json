@@ -29,6 +29,7 @@
   "homepage": "https://github.com/Financial-Times/keen-query#readme",
   "devDependencies": {
     "chai": "^3.4.1",
-    "mocha": "^2.4.2"
+    "mocha": "^2.4.2",
+    "next-build-tools": "^5.16.1"
   }
 }
