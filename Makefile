@@ -48,3 +48,5 @@ install:
 
 test:
 	nbt verify --skip-layout-checks
+
+tidy:
