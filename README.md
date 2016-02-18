@@ -1,6 +1,6 @@
 # keen-query
 
-Concise javascript API and cli for querying and performing advanced analysis on keen data.
+Concise JavaScript API and cli for querying and performing advanced analysis on Keen data.
 
 # Usage
 
@@ -12,11 +12,11 @@ Concise javascript API and cli for querying and performing advanced analysis on 
 
 Make sure you have KEEN_READ_KEY and KEEN_PROJECT_ID env vars set
 
-* Note - if you work in the next FT team you need n-keen-query (identical syntax to this component, but wrapped in some sensible default settings) *
+*Note: if you work in the next FT team you need n-keen-query (identical syntax to this component, but wrapped in some sensible default settings)*
 
-- `kq 'page:dwell->count()->filter(!user.isStaff)'` will output an ascii table of data
-- `kq convert 'https://... some long keen url'` can be used to convert existing queries to the format below
-- `kq print 'https://... some long keen url'` can be used to output ascii tables given a keen query url
+- `kq 'page:dwell->count()->filter(!user.isStaff)'` will output an ASCII table of data
+- `kq convert 'https://... some long Keen url'` can be used to convert existing queries to the format below
+- `kq print 'https://... some long Keen url'` can be used to output ASCII tables given a Keen query url
 
 ## Writing queries
 
@@ -32,11 +32,11 @@ Queries can be built in two main ways
 		.interval('d')
 ```
 
-Under the hood, keen-query converts the string queries into ones using the API, using `KeenQuery.build()`, which can be used to write your queries as strings, but consume within a js application.
+Under the hood, keen-query converts the string queries into ones using the API, using `KeenQuery.build()`, which can be used to write your queries as strings, but consume within a JS application.
 
 ### Notes on syntax
 - Values in the query strings are heavily type coerced, so quote marks are generally not necessary. The (largely untested) intention is however to be agnostic about quote marks, so if you have a value you don't want to be coerced, or that contains awkwards charcters that may break the query parsing (such as `(`), try adding quotes
-- **If any bit of syntax seems unintuitve please raise it ASAP - would be good to get most things reasonably settled by the v2 release**
+- **If any bit of syntax seems unintuitive please raise it ASAP - would be good to get most things reasonably settled by the v2 release**
 
 ### Setting up the data extraction
 
@@ -66,7 +66,7 @@ Then any of the below can be applied in any order (though it's advisable to put 
 
 Filter can be called as many times as you like
 
-*Note: the intention is to replicate all keen's available filters. Raise an issue if I missed any*
+*Note: the intention is to replicate all Keen's available filters. Raise an issue if I missed any*
 
 | Function | String | JS API |
 | ------------- |-------------| -----|
@@ -112,7 +112,7 @@ By default data is returned for `this_14_days`
 | Previous 3 hours | `->relTime(previous_3_hours)` | `kq.relTime('previous_3_hours') |
 
 #### Absolute time
-`start` and `end` should be ISO time strings (`Date` objects are also OK in the js API). Support for other time formats is on the backlog!
+`start` and `end` should be ISO time strings (`Date` objects are also OK in the JS API). Support for other time formats is on the backlog!
 
 | Function | String | JS API |
 | ------------- |-------------| -----|
@@ -121,16 +121,16 @@ By default data is returned for `this_14_days`
 
 ### Post processing data
 
-A numbe of additional methods can be sued to aggregate, reduce, or otherwise manipulate the results of a keen query. They can be combined in all sorts of weird and wonderful ways (e.g. calculate a ratio of two tables, reduce to a single column, then concatenate with the original values) - be careful you're not generating nonsense data!
+A number of additional methods can be used to aggregate, reduce, or otherwise manipulate the results of a Keen query. They can be combined in all sorts of weird and wonderful ways (e.g. calculate a ratio of two tables, reduce to a single column, then concatenate with the original values) - be careful you're not generating nonsense data!
 
-**Note on specifying dimensions**
+**Note on specifying dimensions:**
 Some methods expect a dimension to be specified e.g to choose between taking an average across rows or columns. The value of dimension can be
  - `timeframe` or the name of a property that has been grouped by
  - a positive integer (0 indexed) to refer dirctly to a given dimension e.g in a table plotting count against time, a value of `1` would pick out the time dimension. Dimensions are added in the same order the methods creating them are called so e.g. `->interval(d)->group(uuid)` would have `timeframe` as the 0th dimension, `uuid` as the 1st;
 
 #### Aggregators
 
-These combine multiple keen-queries using a perdefined rule. They follow the syntax `@agregatorName(comma separated list of queries)`. So far they are not available In the JS API, and include:
+These combine multiple keen-queries using a predefined rule. They follow the syntax `@agregatorName(comma separated list of queries)`. So far they are not available In the JS API, and include:
 
 - `@ratio` - Given two queries returning results with identical structure, it returns a new table where the values are the result of dividing the value in the first table with its corresponding value in the second
 - `@pct` - as above but expressed as a percentage
@@ -165,36 +165,35 @@ There are a few built in methods for outputting data
 
 | Output | String | JS API |
 | ------------- |-------------| -----|
-| Returns the url(s) used to query keen | `->print(url)` | `kq.print('url') |
+| Returns the url(s) used to query Keen | `->print(url)` | `kq.print('url') |
 | JSON representation of the query | `->print(qo)` | `kq.print('qo') |
 | Stringified JSON representation of the query | `->print(qs)` | `kq.print('qs') |
-| The raw JSON response(s) from keen | `->print(raw)` | `kq.print('raw') |
+| The raw JSON response(s) from Keen | `->print(raw)` | `kq.print('raw') |
 | Normalised JSON of the response (a 2 dimensional matrix with headings) | `->print(json)` | `kq.print('json') |
-| Prints out an ascii table of the results | `->print(ascii)` | `kq.print('ascii') |
+| Prints out an ASCII table of the results | `->print(ascii)` | `kq.print('ascii') |
 
 `KeenQuery.definePrinter(name, func)` can be used to define your own printers (e.g. to output a graph to the DOM). Within `func`, `this` will point at the current KeenQuery instance, and `this.getTable()` will give access to an object with the following properties and methods:
 
-*NOTE - the intention is for these objects to be immutable. If you find an instance of a method that mutates the original table it's a bug - **don't rely on the behaviour and please report** *
+*Note: the intention is for these objects to be immutable. If you find an instance of a method that mutates the original table it's a bug -* **don't rely on the behaviour and please report**
 
 - `data` - property holding all the data retrieved in an n-dimensional matrix constructed of arrays nested n deep
-- axes - names and value sfor axes of the
- table
+- `axes` - names and values for axes of the table
 - `dimension` - property holding the number of dimensions of the table (i.e. by how many things is data grouped by)
 - `size` - property holding an array representing the size of the table e.g. if grouped by `eye.colour` and `hair.colour` and there are 4 possible values for eye colour and 6 for hair colour it will return `[4, 6]`
 - `getAxis (name)` - returns the dimension in which a given grouping is held, e.g. in the above example `getAxis('eye')` would return 0, `getAxis('hair')` would return 1
-- `convertTime (format)` - converts all timeframe objects to the given format Accepted values are
+- `convertTime (format)` - converts all timeframe objects to the given format. Accepted values are
 	- ISO - ISO strings
-	- shortISO - ISO strings with unecessary fine-grainedness removed
+	- shortISO - ISO strings with unnecessary fine-grainedness removed
 	- human - human readable strings representing the timeframe
-	- shortest - shortest possible human readable strings containig enough information to identify the time range
+	- shortest - shortest possible human readable strings containing enough information to identify the time range
 - `humanize (timeFormat)` - converts the table (where possible) to an object of the following format
 
-  ```
-  {
-  	headings: ['array', 'of', 'column', 'headings',
-  	rows: [[], [], []] // rows of data, including row headings in the first position of each sub array
- 	}
- 	```
+```
+	{
+  		headings: ['array', 'of', 'column', 'headings',
+  		rows: [[], [], []] // rows of data, including row headings in the first position of each sub array
+	}
+```
 - `cellIterator (func, endDepth)` - Iterates a function over each cell in the table *TODO - known bug. need to change to being immutable*
 - `switchDimensions (a, b, method)` - switches two dimensions e.g. swaps rows for columns
    - a - index/name of the first dimension to move (default 0)
@@ -202,12 +201,12 @@ There are a few built in methods for outputting data
    - method - when a or b are their default values, setting method to `shuffle` will move the dimension to be the first/last, and shuffle all other dimesnions along to make room, as opposed to swapping the a/bth dimension with the first/last
 
 
-the keen data with all aggregations, reductiosn etc. already applied.
+the Keen data with all aggregations, reductions etc. already applied.
 
 
 
 ### Utilities
 
-- KeenQuery.parseFilter(str) - converts a string compatible with the above syntax into a keen filter object
+- KeenQuery.parseFilter(str) - converts a string compatible with the above syntax into a Keen filter object
 - KeenQuery.forceQuery(func) - the function will be run as part of every query. Useful for e.g. excluding test data from results
-- KeenQuery.defineQuery(name, func) - defines a method `name` which can be used as part of a keen-query string or in the js api.
+- KeenQuery.defineQuery(name, func) - defines a method `name` which can be used as part of a keen-query string or in the JS API.
