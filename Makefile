@@ -3,6 +3,7 @@
 test-query:
 	node ./bin/keen-query.js 'cta->count(user.uuid)->relTime(3)'
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->relTime(3)'
+	node ./bin/keen-query.js 'cta->count()->filter(user.uuid!?12,11,14)->interval(2_d)->relTime(6)';
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->interval(d)->group(page.location.type)->relTime(3)';
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->interval(day)->group(page.location.type)->relTime(3)';
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->group(page.location.type,user.isStaff)->relTime(3)';

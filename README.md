@@ -76,7 +76,7 @@ Filter can be called as many times as you like
 | prop is less than value | `->filter(prop<val)` | `kq.filter('prop<val')` |
 | prop contains value | `->filter(prop~val)` | `kq.filter('prop~val')` |
 | prop is equal to val1, val2 ... | `->filter(prop?val1,val2,val3)` | `kq.filter('prop?val1,val2,val3')` |
-| prop is equal to value | `->filter(prop=val)` | `kq.filter('prop=val')` |
+| prop is not equal to val1, val2 ... | `->filter(prop!?val1,val2,val3)` | `kq.filter('prop!?val1,val2,val3')` |
 | prop exists | `->filter(prop)` | `kq.filter('prop')` |
 | prop doesn't exist | `->filter(!prop)` | `kq.filter('!prop')` |
 
