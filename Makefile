@@ -32,6 +32,7 @@ test-reduce:
 	node ./bin/keen-query.js 'cta->count()->interval(d)->relTime(3)->reduce(avg)'
 	node ./bin/keen-query.js 'cta->count()->interval(d)->group(page.location.type)->relTime(3)'
 	node ./bin/keen-query.js 'cta->count(user.uuid)->interval(d)->group(page.location.type)->relTime(3)->reduce(all)'
+	node ./bin/keen-query.js '@ratio(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)'
 	node ./bin/keen-query.js '@ratio(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)->reduce(avg)'
 
 test-select:

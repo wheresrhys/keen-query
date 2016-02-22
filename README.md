@@ -56,8 +56,8 @@ First choose your event type
 | Maximum value of prop |	`->max(session.length)` | `kq.max('session.length')`|
 | Sum values of prop |	`->sum(session.length)` | `kq.sum('session.length')`|
 | Average value of prop |	`->avg(session.length)` | `kq.avg('session.length')`|
-| Median value of prop |	`->med(session.length)` | `kq.med('session.length')`|
-| n-th (e.g. 90th) percentile value of prop |`->pct(session.length,90)` | `kq.pct('session.length', 90)`|
+| Median value of prop |	`->med(session.length)` or `->median(session.length)` | `kq.med('session.length')` or `kq.median('session.length')`|
+| n-th (e.g. 90th) percentile value of prop |`->pct(session.length,90)` or `->percentile(session.length,90)` | `kq.pct('session.length', 90)` or `kq.percentile('session.length', 90)`|
 | Select unique values for prop |	`->select(user.uuid)` | `kq.select('user.uuid')`|
 
 Then any of the below can be applied in any order (though it's advisable to put any time functions last as these will be the ones you'll most likely want to tweak later)
@@ -158,6 +158,7 @@ These allow values to be combined according to well known mathematical functions
 - `->round(n)` Rounds values to n decimal places. if n is negative rounds to the nearest 10, 100, 1000 etc...
 - `sort(dimension, value)` **TODO (please request)**
 - `multiply(n)` Multiplies each value by `n`
+- `divide(n)` Divides each value by n
 
 ### Outputting data
 
