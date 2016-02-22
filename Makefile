@@ -42,7 +42,7 @@ test-select:
 	node ./bin/keen-query.js 'cta->select(page.location.type)->relTime(30_minutes)->interval(m)->group(user.isStaff)'
 
 test-sort:
-	# node ./bin/keen-query.js 'cta->count()->group(page.location.type,user.isStaff)->relTime(3)->sortDesc(avg,page.location.type)'
+	node ./bin/keen-query.js 'cta->count()->group(page.location.type,user.isStaff)->relTime(3)->sortDesc(avg,page.location.type)'
 	# node ./bin/keen-query.js 'cta->count()->group(page.location.type)->relTime(3)->sortAsc()'
 	# node ./bin/keen-query.js 'cta->count(user.uuid)->interval(d)->group(page.location.type)->relTime(3)->reduce(all)'
 	# node ./bin/keen-query.js '@ratio(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)'
