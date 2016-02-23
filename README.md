@@ -164,7 +164,12 @@ If a third paramter is set to `true` a table will be returned that concatenates 
 - `divide(n)` Divides each value by n
 - `sortAsc([reduction,dimension])`
 - `sortDesc([reduction,dimension])`
-- `threshold(value, name)` For graphs over tiem, draws an additional line fixed at the given value
+- `threshold(value, name)` For graphs over time, draws an additional line fixed at the given value
+
+#### Experimental
+
+- `top(n,[percent])`/ `bottom(n,[percent])` shows the top/bottom n (or n percent) of results
+- `cutoff(n,[percent])` ignore all values smaller than n (or n percent of the total)
 
 ### Outputting data
 

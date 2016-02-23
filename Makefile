@@ -60,6 +60,13 @@ test-sort:
 	# node ./bin/keen-query.js '@ratio(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)->reduce(avg)'
 
 
+test-cutoff
+	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->top(2)'
+	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->top(20,percent)'
+	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->bottom(2)'
+	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->bottom(20,percent)'
+	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->cutoff(10000)'
+
 test-reusability:
 	mocha test/reusability.test.js
 
