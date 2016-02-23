@@ -164,6 +164,7 @@ If a third paramter is set to `true` a table will be returned that concatenates 
 - `divide(n)` Divides each value by n
 - `sortAsc([reduction,dimension])`
 - `sortDesc([reduction,dimension])`
+- `threshold(value, name)` For graphs over tiem, draws an additional line fixed at the given value
 
 ### Outputting data
 
