@@ -20,6 +20,7 @@ test-ratio:
 	node ./bin/keen-query.js '@ratio(cta->count(),cta->count(user.uuid))->interval(d)->relTime(3)'
 	node ./bin/keen-query.js '@ratio(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)'
 	node ./bin/keen-query.js '@ratio(cta->count(),cta->count(user.uuid))->group(page.location.type,user.isStaff)->relTime(3)'
+	node ./bin/keen-query.js '@ratio(cta->count()->group(page.location.type,user.isStaff),cta->count(user.uuid)->group(page.location.type))->relTime(3)'
 
 test-concat:
 	node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid))->relTime(3)'
