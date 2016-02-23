@@ -132,10 +132,10 @@ Some methods expect a dimension to be specified e.g to choose between taking an 
 
 These combine multiple keen-queries using a predefined rule. They follow the syntax `@agregatorName(comma separated list of queries)`. So far they are not available In the JS API, and include:
 
-- `@ratio` - Given two queries returning results with identical structure, it returns a new table where the values are the result of dividing the value in the first table with its corresponding value in the second
+- `@ratio` - Given two queries returning results with similar structure, it returns a new table where the values are the result of dividing the value in the first table with its corresponding value in the second
 - `@pct` - as above but expressed as a percentage
 - `@sum` - Given two queries returning results with identical structure, it returns a new table where the values are the result of adding the value in the first table to its corresponding value in the second
-- `@concat` - **TODO (please request)** Given n queries returning results with similar structure, it combines them into a single table by concatenating the columns of each table
+- `@concat` - Given n queries returning results with similar structure, it combines them into a single table by concatenating the columns of each table
 - `@funnel` - **TODO**
 
 Aggregations must be created using `KeenQuery.build()`, which returns an object with the same interface as a `KeenQuery` instance, so reductions can be performed on it.
@@ -153,6 +153,8 @@ These allow values to be combined according to well known mathematical functions
 | Median value | `->reduce(median,timeframe)` | `kq.reduce('median','timeframe')` |
 | Trend (linear regression gradient) | `->reduce(trend,timeframe)` | `kq.reduce('trend','timeframe')` |
 | Percent change - % up/down in last 2 values | `->reduce(%change,timeframe)` | `kq.reduce('%change','timeframe')` |
+
+If a third paramter is set to `true` a table will be returned that concatenates the reduction on as an additional column
 
 #### Other
 
