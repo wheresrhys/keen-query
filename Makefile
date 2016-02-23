@@ -25,6 +25,9 @@ test-ratio:
 test-concat:
 	node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid),dwell->count(user.uuid))->relTime(3)'
 	node ./bin/keen-query.js '@concat(cta->count()->group(page.location.type),cta->count(user.uuid),dwell->count(user.uuid))->relTime(3)'
+	node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid),dwell->count(user.uuid))->group(page.location.type)->relTime(3)'
+	node ./bin/keen-query.js '@concat(cta->count()->group(user.isStaff),cta->count(user.uuid),dwell->count(user.uuid))->group(page.location.type)->relTime(3)'
+
 	# node ./bin/keen-query.js '@concat(page:view->count(user.uuid)->interval(day)->relTime(this_3_days),page:view->count(user.uuid)->filter(user.myft.isMyFtUser=true)->interval(day)->relTime(this_3_days))';
 	# node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid))->interval(d)->relTime(3)'
 	# node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)'
