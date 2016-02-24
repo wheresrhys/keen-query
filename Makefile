@@ -29,12 +29,10 @@ test-concat:
 	node ./bin/keen-query.js '@concat(cta->count()->group(user.isStaff),cta->count(user.uuid),dwell->count(user.uuid))->group(page.location.type)->relTime(3)'
 	node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid))->interval(d)->relTime(3)'
 	node ./bin/keen-query.js '@concat(cta->count()->group(page.location.type),cta->count(user.uuid))->interval(d)->relTime(3)'
-
 	# node ./bin/keen-query.js '@concat(page:view->count(user.uuid)->interval(day)->relTime(this_3_days),page:view->count(user.uuid)->filter(user.myft.isMyFtUser=true)->interval(day)->relTime(this_3_days))';
 	# node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid))->interval(d)->relTime(3)'
 	# node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)'
 	# node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid))->group(page.location.type,user.isStaff)->relTime(3)'
-#
 
 test-reduce:
 	node ./bin/keen-query.js 'cta->count()->interval(d)->relTime(3)->reduce(avg)'
@@ -60,7 +58,7 @@ test-sort:
 	# node ./bin/keen-query.js '@ratio(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)->reduce(avg)'
 
 
-test-cutoff
+test-cutoff:
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->top(2)'
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->top(20,percent)'
 	node ./bin/keen-query.js 'cta->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->bottom(2)'
