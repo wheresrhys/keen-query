@@ -34,6 +34,9 @@ test-concat:
 	# node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)'
 	# node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid))->group(page.location.type,user.isStaff)->relTime(3)'
 
+test-funnel:
+	node ./bin/keen-query.js '@funnel(dwell->count(),cta->count())->relTime(3)'
+
 test-reduce:
 	node ./bin/keen-query.js 'cta->count()->interval(d)->relTime(3)->reduce(avg)'
 	node ./bin/keen-query.js 'cta->count()->interval(d)->group(page.location.type)->relTime(3)'

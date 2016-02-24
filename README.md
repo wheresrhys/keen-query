@@ -136,7 +136,8 @@ These combine multiple keen-queries using a predefined rule. They follow the syn
 - `@pct` - as above but expressed as a percentage
 - `@sum` - Given two queries returning results with identical structure, it returns a new table where the values are the result of adding the value in the first table to its corresponding value in the second
 - `@concat` - Given n queries returning results with similar structure, it combines them into a single table by concatenating the columns of each table
-- `@funnel` - **TODO**
+- `@funnel` - Track whether e.g. a user completes several steps of a funnel. Must be used with the special extraction `->with()` to choose the property to use to identify the user.
+// TODO hack together something to make funnels work with grouped data or intervals
 
 Aggregations must be created using `KeenQuery.build()`, which returns an object with the same interface as a `KeenQuery` instance, so reductions can be performed on it.
 
