@@ -29,6 +29,7 @@ test-concat:
 	node ./bin/keen-query.js '@concat(cta->count()->group(user.isStaff),cta->count(user.uuid),dwell->count(user.uuid))->group(page.location.type)->relTime(3)'
 	node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid))->interval(d)->relTime(3)'
 	node ./bin/keen-query.js '@concat(cta->count()->group(page.location.type),cta->count(user.uuid))->interval(d)->relTime(3)'
+	node ./bin/keen-query.js '@concat(@pct(site:optout->count(user.uuid),page:view->count(user.uuid)), @pct(site:optin->count(user.uuid)->filter(context.optedVia!=__anon-opt-in)->filter(context.optedVia!=__m-dot-opt-in),page:view->count(user.uuid)))->interval(d)'
 	# node ./bin/keen-query.js '@concat(page:view->count(user.uuid)->interval(day)->relTime(this_3_days),page:view->count(user.uuid)->filter(user.myft.isMyFtUser=true)->interval(day)->relTime(this_3_days))';
 	# node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid))->interval(d)->relTime(3)'
 	# node ./bin/keen-query.js '@concat(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)'
@@ -36,6 +37,7 @@ test-concat:
 
 test-funnel:
 	node ./bin/keen-query.js '@funnel(dwell->count(),cta->count())->relTime(3)'
+	node ./bin/keen-query.js '@funnel(page:view->count(user.uuid)->filter(page.location.type=frontpage),page:view->count(user.uuid)->filter(page.location.type=article)->filter(page.referrer.type=frontpage),page:view->count(user.uuid)->filter(page.location.type=article)->filter(page.referrer.type=article))->relTime(3)->with(user.uuid)'
 
 test-reduce:
 	node ./bin/keen-query.js 'cta->count()->interval(d)->relTime(3)->reduce(avg)'
@@ -82,3 +84,6 @@ install:
 
 test:
 	nbt verify --skip-layout-checks
+
+test-now:
+	node ./bin/keen-query.js '@funnel(page:view->count(user.uuid)->filter(page.location.type=frontpage),page:view->count(user.uuid)->filter(page.location.type=article)->filter(page.referer.type=frontpage),page:view->count(user.uuid)->filter(page.location.type=article)->filter(page.referer.type=article))->relTime(3)->with(user.uuid)'
