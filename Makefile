@@ -90,5 +90,5 @@ test:
 	nbt verify --skip-layout-checks
 
 test-now:
-	node ./bin/keen-query.js 'page:view->count(user.uuid)->group(device.oGridLayout)'
+	node ./bin/keen-query.js 'page:view->count(user.uuid)->group(device.oGridLayout)->sortProp(device.oGridLayout,default,XS,S,M,L,XL,XXL)->relabel(device.oGridLayout,chicken,pizza)'
 
