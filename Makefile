@@ -58,6 +58,9 @@ test-select:
 
 test-sort:
 	node ./bin/keen-query.js 'page:view->count()->group(page.location.type,device.oGridLayout)->relTime(3)->sortDesc(min,device.oGridLayout)'
+	node ./bin/keen-query.js 'page:view->count(user.uuid)->group(device.oGridLayout)->sortProp(device.oGridLayout,default,XS,S,M,L,XL,XXL)'
+	node ./bin/keen-query.js 'page:view->count(user.uuid)->group(device.oGridLayout)->interval(d)->sortProp(device.oGridLayout,default,XS,S,M,L,XL,XXL)'
+	node ./bin/keen-query.js 'page:view->count(user.uuid)->group(device.oGridLayout)->group(page.location.type)->sortProp(device.oGridLayout,default,XS,S,M,L,XL,XXL)'
 	# node ./bin/keen-query.js 'cta->count()->group(page.location.type)->relTime(3)->sortAsc()'
 	# node ./bin/keen-query.js 'cta->count(user.uuid)->interval(d)->group(page.location.type)->relTime(3)->reduce(all)'
 	# node ./bin/keen-query.js '@ratio(cta->count(),cta->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)'
@@ -87,4 +90,5 @@ test:
 	nbt verify --skip-layout-checks
 
 test-now:
-	node ./bin/keen-query.js '@funnel(page:view->count(user.uuid)->filter(page.location.type=frontpage),page:view->count(user.uuid)->filter(page.location.type=article)->filter(page.referer.type=frontpage),page:view->count(user.uuid)->filter(page.location.type=article)->filter(page.referer.type=article))->relTime(3)->with(user.uuid)'
+	node ./bin/keen-query.js 'page:view->count(user.uuid)->group(device.oGridLayout)'
+
