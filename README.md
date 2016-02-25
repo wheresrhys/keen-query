@@ -166,6 +166,7 @@ If a third paramter is set to `true` a table will be returned that concatenates 
 - `divide(n)` Divides each value by n
 - `sortAsc([reduction,dimension])`
 - `sortDesc([reduction,dimension])`
+- `sortProp(property,value1,value2,...)` Sorts rows in the result according to values in the `property` axis, in the order given
 - `plotThreshold(value, name)` For graphs over time, draws an additional line fixed at the given value
 
 #### Experimental
