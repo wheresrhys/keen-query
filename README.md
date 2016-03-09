@@ -12,8 +12,6 @@ Concise JavaScript API and cli for querying and performing advanced analysis on 
 
 Make sure you have KEEN_READ_KEY and KEEN_PROJECT_ID env vars set
 
-*Note: if you work in the next FT team you need n-keen-query (identical syntax to this component, but wrapped in some sensible default settings)*
-
 - `kq 'page:dwell->count()->filter(!user.isStaff)'` will output an ASCII table of data
 - `kq convert 'https://... some long Keen url'` can be used to convert existing queries to the format below
 - `kq print 'https://... some long Keen url'` can be used to output ASCII tables given a Keen query url
@@ -21,8 +19,10 @@ Make sure you have KEEN_READ_KEY and KEEN_PROJECT_ID env vars set
 ## Writing queries
 
 Queries can be built in two main ways
+
 - a string such as `page:dwell->count()->filter(!user.isStaff)->group(page.location.type).relTime(this_12_days)->interval(d)`.
 - Equivalently, the JavaScript API can be used directly
+
 ```
 	new KeenQuery('page:dwell')
 		.count()
@@ -35,6 +35,7 @@ Queries can be built in two main ways
 Under the hood, keen-query converts the string queries into ones using the API, using `KeenQuery.build()`, which can be used to write your queries as strings, but consume within a JS application.
 
 ### Notes on syntax
+
 - Values in the query strings are heavily type coerced, so quote marks are generally not necessary. The (largely untested) intention is however to be agnostic about quote marks, so if you have a value you don't want to be coerced, or that contains awkwards charcters that may break the query parsing (such as `(`), try adding quotes
 - **If any bit of syntax seems unintuitive please raise it ASAP - would be good to get most things reasonably settled by the v2 release**
 
@@ -100,6 +101,7 @@ Data can be grouped by as many properties as required, as well as by time interv
 | Exclude null values | `->tidy()` | `kq.tidy()` |
 
 Instead of shorthands, `minute`, `hour`, `day`, `week`, `month` or `year` can now also be used
+
 ### Selecting time range
 
 By default data is returned for `this_14_days`
@@ -113,6 +115,7 @@ By default data is returned for `this_14_days`
 | Previous 3 hours | `->relTime(previous_3_hours)` | `kq.relTime('previous_3_hours') |
 
 #### Absolute time
+
 `start` and `end` should be ISO time strings (`Date` objects are also OK in the JS API). Support for other time formats is on the backlog!
 
 | Function | String | JS API |
@@ -125,6 +128,7 @@ By default data is returned for `this_14_days`
 A number of additional methods can be used to aggregate, reduce, or otherwise manipulate the results of a Keen query. They can be combined in all sorts of weird and wonderful ways (e.g. calculate a ratio of two tables, reduce to a single column, then concatenate with the original values) - be careful you're not generating nonsense data!
 
 **Note on specifying dimensions:**
+
 Some methods expect a dimension to be specified e.g to choose between taking an average across rows or columns. The value of dimension can be
  - `timeframe` or the name of a property that has been grouped by
  - a positive integer (0 indexed) to refer dirctly to a given dimension e.g in a table plotting count against time, a value of `1` would pick out the time dimension. Dimensions are added in the same order the methods creating them are called so e.g. `->interval(d)->group(uuid)` would have `timeframe` as the 0th dimension, `uuid` as the 1st;
@@ -210,16 +214,12 @@ There are a few built in methods for outputting data
   		rows: [[], [], []] // rows of data, including row headings in the first position of each sub array
 	}
 ```
+
 - `cellIterator (func, endDepth)` - Iterates a function over each cell in the table *TODO - known bug. need to change to being immutable*
 - `switchDimensions (a, b, method)` - switches two dimensions e.g. swaps rows for columns
    - a - index/name of the first dimension to move (default 0)
    - b - index/name of the second dimension to move (default: the deepest dimension of the table)
-   - method - when a or b are their default values, setting method to `shuffle` will move the dimension to be the first/last, and shuffle all other dimesnions along to make room, as opposed to swapping the a/bth dimension with the first/last
-
-
-the Keen data with all aggregations, reductions etc. already applied.
-
-
+   - method - when a or b are their default values, setting method to `shuffle` will move the dimension to be the first/last, and shuffle all other dimesnions along to make room, as opposed to swapping the a/bth dimension with the first/last the Keen data with all aggregations, reductions etc. already applied.
 
 ### Utilities
 
