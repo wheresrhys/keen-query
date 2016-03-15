@@ -58,6 +58,7 @@ describe('generating URLS for keen-query: API', () => {
 		const kq = KeenQuery.build('page:view->count(user.uuid)')
 		return kq.print('url')
 			.then(res => {
+				expect(res).to.contain('/queries/count_unique')
 				expect(res).to.contain('event_collection=page%3Aview&target_property=user.uuid')
 			})
 	})
