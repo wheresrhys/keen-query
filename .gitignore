@@ -2,3 +2,4 @@
 /bower_components/
 /.idea/
 .env
+/test.js
