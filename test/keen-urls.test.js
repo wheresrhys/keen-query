@@ -58,10 +58,9 @@ describe('generating URLS for keen-query: API', () => {
 		const kq = KeenQuery.build('page:view->count(user.uuid)')
 		return kq.print('url')
 			.then(res => {
-				expect(res).to.contain('analysis_type=count_unique&target_property=user.uuid')
+				expect(res).to.contain('event_collection=page%3Aview&target_property=user.uuid')
 			})
 	})
-
 })
 
 
@@ -91,7 +90,7 @@ describe('generating URLS for keen-query: Explorer', () => {
 		const kq = KeenQuery.build('page:view->count()')
 			.filter('user.uuid')
 
-		expect(kq.generateKeenUrl('/testing?','explorer')).to.contain('query[filters][0]=user.uuid&query[filters][0]=exists&query[filters][0]=true')
+		expect(kq.generateKeenUrl('/testing?','explorer')).to.contain('query[filters][0][property_name]=user.uuid&query[filters][0][operator]=exists&query[filters][0][property_value]=true')
 	})
 
 	it('should have explorer-compatible urls for grouped queries', () => {
