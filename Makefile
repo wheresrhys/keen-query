@@ -87,8 +87,12 @@ install:
 	npm install
 
 test:
+	@echo \(Note: Use \`make test-all\` for comprehensive testing\)
 	nbt verify --skip-layout-checks
 
 test-now:
 	node ./bin/keen-query.js 'page:view->count(user.uuid)->group(device.oGridLayout)->sortProp(device.oGridLayout,default,XS,S,M,L,XL,XXL)->relabel(device.oGridLayout,chicken,pizza)'
+
+test-all:
+	make test-err test-keen-urls test-reusability test-cutoff test-sort test-select test-threshold test-reduce test-funnel test-concat test-ratio test-trim test-query
 
