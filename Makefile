@@ -47,6 +47,9 @@ test-reduce:
 	node ./bin/keen-query.js '@ratio(cta:click->count(),cta:click->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)'
 	node ./bin/keen-query.js '@ratio(cta:click->count(),cta:click->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)->reduce(avg)'
 
+test-multiply-concat:
+	node ./bin/keen-query.js '@concat(cta:click->count()->multiply(1000),cta:click->count())->relTime(3)'
+
 test-threshold:
 	node ./bin/keen-query.js 'cta:click->count()->group(page.location.type)->interval(d)->relTime(3)->threshold(5000,minimumlevel)'
 
