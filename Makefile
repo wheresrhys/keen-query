@@ -86,9 +86,15 @@ test-err:
 install:
 	npm install
 
+test-unit:
+	export KEEN_PROJECT_ID=test_proj; export KEEN_READ_KEY=test_key; mocha test
+
 test:
 	@echo \(Note: Use \`make test-all\` for comprehensive testing\)
 	nbt verify --skip-layout-checks
+
+
+
 
 test-now:
 	node ./bin/keen-query.js 'page:view->count(user.uuid)->group(device.oGridLayout)->sortProp(device.oGridLayout,default,XS,S,M,L,XL,XXL)->relabel(device.oGridLayout,chicken,pizza)'
