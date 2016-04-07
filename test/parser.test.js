@@ -303,8 +303,28 @@ describe('Parsing keen queries', function () {
 		});
 
 	});
-	// nested aggregators
-	// whitespace
-	// the whole shebang
-	// post processing - test the effect on a kq object
+	it.skip('nested aggregators', () => {});
+	it.skip('whitespace', () => {});
+	it.skip('the whole shebang', () => {});
+	it.skip('post processing - test the effect on a kq object', () => {});
+	it.skip('filter parsing', () => {});
+
+// test-query:
+// 	node ./bin/keen-query.js 'cta:click->count(user.uuid)->relTime(3)'
+// 	node ./bin/keen-query.js 'cta:click->count()->filter(user.uuid)->relTime(3)'
+// 	node ./bin/keen-query.js 'cta:click->count()->filter(user.uuid!?12,11,14)->interval(2_d)->relTime(6)';
+// 	node ./bin/keen-query.js 'cta:click->count()->filter(user.uuid)->interval(d)->group(page.location.type)->relTime(3)';
+// 	node ./bin/keen-query.js 'cta:click->count()->filter(user.uuid)->interval(day)->group(page.location.type)->relTime(3)';
+// 	node ./bin/keen-query.js 'cta:click->count()->filter(user.uuid)->group(page.location.type,user.isStaff)->relTime(3)';
+// 	node ./bin/keen-query.js 'cta:click->count()->filter(user.uuid)->group(page.location.type,user.isStaff)->relTime(3)->round()';
+// 	node ./bin/keen-query.js 'cta:click->count()->filter(user.uuid)->interval(2_d)->relTime(6)';
+// 	node ./bin/keen-query.js 'cta:click->count(user.uuid)->relTime(3)->filter(user.uuid!~f0bb6f11)'
+
+// test-trim:
+// 	node ./bin/keen-query.js 'cta:click->count(user.uuid)->relTime(3)'
+// 	node ./bin/keen-query.js 'cta:click -> count (user.uuid) -> relTime(3)'
+// 	node ./bin/keen-query.js ' @ratio ( cta:click -> count (user.uuid) -> relTime(3) , cta:click -> count (user.uuid) -> relTime(3) ) ->interval(d)'
+
+
+
 });
