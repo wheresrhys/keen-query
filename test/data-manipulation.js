@@ -381,30 +381,30 @@ describe('Data manipulation', () => {
 
 			it('will round to zero places by default', () => {
 				fetchMock
-						.mock(/potato/, multiply(16/3, mockKeenData(3,3)));
-					return testQuery('potato->count()->group(prop0,prop1)->round()',
-						{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,5,11],["prop0-1",53,59,64],["prop0-2",107,112,117]]})
+					.mock(/potato/, multiply(16/3, mockKeenData(3,3)));
+				return testQuery('potato->count()->group(prop0,prop1)->round()',
+					{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,5,11],["prop0-1",53,59,64],["prop0-2",107,112,117]]})
 			});
 
 			it('will round to positive number of places', () => {
 				fetchMock
-						.mock(/potato/, multiply(16/3, mockKeenData(3,3)));
-					return testQuery('potato->count()->group(prop0,prop1)->round(2)',
-						{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,5.33,10.67],["prop0-1",53.33,58.67,64],["prop0-2",106.67,112,117.33]]})
+					.mock(/potato/, multiply(16/3, mockKeenData(3,3)));
+				return testQuery('potato->count()->group(prop0,prop1)->round(2)',
+					{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,5.33,10.67],["prop0-1",53.33,58.67,64],["prop0-2",106.67,112,117.33]]})
 			});
 
 			it('will round to zero places', () => {
 				fetchMock
-						.mock(/potato/, multiply(16/3, mockKeenData(3,3)));
-					return testQuery('potato->count()->group(prop0,prop1)->round(0)',
-						{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,5,11],["prop0-1",53,59,64],["prop0-2",107,112,117]]})
+					.mock(/potato/, multiply(16/3, mockKeenData(3,3)));
+				return testQuery('potato->count()->group(prop0,prop1)->round(0)',
+					{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,5,11],["prop0-1",53,59,64],["prop0-2",107,112,117]]})
 			});
 
 			it('will round to nearest 10, 100 etc', () => {
 				fetchMock
-						.mock(/potato/, multiply(163457/3, mockKeenData(3,3)));
-					return testQuery('potato->count()->group(prop0,prop1)->round(-2)',
-						{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,54500,109000],["prop0-1",544900,599300,653800],["prop0-2",1089700,1144200,1198700]]})
+					.mock(/potato/, multiply(163457/3, mockKeenData(3,3)));
+				return testQuery('potato->count()->group(prop0,prop1)->round(-2)',
+					{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,54500,109000],["prop0-1",544900,599300,653800],["prop0-2",1089700,1144200,1198700]]})
 			});
 
 		});
@@ -412,16 +412,16 @@ describe('Data manipulation', () => {
 		describe('multiply and divide', () => {
 			it('will multiply all results by some value', () => {
 				fetchMock
-						.mock(/potato/, mockKeenData(3,3));
-					return testQuery('potato->count()->group(prop0,prop1)->multiply(3.7)',
-						{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,3.7,7.4],["prop0-1",37,40.7,44.400000000000006],["prop0-2",74,77.7,81.4]]})
+					.mock(/potato/, mockKeenData(3,3));
+				return testQuery('potato->count()->group(prop0,prop1)->multiply(3.7)',
+					{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,3.7,7.4],["prop0-1",37,40.7,44.400000000000006],["prop0-2",74,77.7,81.4]]})
 			});
 
 			it('will divide all results by some value', () => {
 				fetchMock
-						.mock(/potato/, mockKeenData(3,3));
-					return testQuery('potato->count()->group(prop0,prop1)->divide(1000)',
-						{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,0.001,0.002],["prop0-1",0.01,0.011,0.012],["prop0-2",0.02,0.021,0.022]]})
+					.mock(/potato/, mockKeenData(3,3));
+				return testQuery('potato->count()->group(prop0,prop1)->divide(1000)',
+					{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,0.001,0.002],["prop0-1",0.01,0.011,0.012],["prop0-2",0.02,0.021,0.022]]})
 			});
 		});
 
@@ -429,68 +429,119 @@ describe('Data manipulation', () => {
 
 			it('should be possible to reorder a column', () => {
 				fetchMock
-						.mock(/potato/, mockKeenData(5));
-					return testQuery('potato->count()->group(prop0)->sortProp(prop0,prop0-4,prop0-2)',
-						{"headings":["prop0","count potato"],"rows":[["prop0-4",4],["prop0-2",2],["prop0-0",0],["prop0-1",1],["prop0-3",3]]});
+					.mock(/potato/, mockKeenData(5));
+				return testQuery('potato->count()->group(prop0)->sortProp(prop0,prop0-4,prop0-2)',
+					{"headings":["prop0","count potato"],"rows":[["prop0-4",4],["prop0-2",2],["prop0-0",0],["prop0-1",1],["prop0-3",3]]});
 			});
 
 			it('should be possible to reorder a table', () => {
 				fetchMock
-						.mock(/potato/, mockKeenData(5,4));
-					return testQuery('potato->count()->group(prop0,prop1)->sortProp(prop1,prop1-3,prop1-2)->sortProp(prop0,prop0-4,prop0-2)',
-						{"headings":["prop0","prop1-3","prop1-2","prop1-0","prop1-1"],"rows":[["prop0-4",43,42,40,41],["prop0-2",23,22,20,21],["prop0-0",3,2,0,1],["prop0-1",13,12,10,11],["prop0-3",33,32,30,31]]});
+					.mock(/potato/, mockKeenData(5,4));
+				return testQuery('potato->count()->group(prop0,prop1)->sortProp(prop1,prop1-3,prop1-2)->sortProp(prop0,prop0-4,prop0-2)',
+					{"headings":["prop0","prop1-3","prop1-2","prop1-0","prop1-1"],"rows":[["prop0-4",43,42,40,41],["prop0-2",23,22,20,21],["prop0-0",3,2,0,1],["prop0-1",13,12,10,11],["prop0-3",33,32,30,31]]});
 			});
 
 			it('should be possible to relabel a column', () => {
 				fetchMock
-						.mock(/potato/, mockKeenData(5));
-					return testQuery('potato->count()->group(prop0)->relabel(prop0,cat,dog,mouse)',
-						{"headings":["prop0","count potato"],"rows":[["cat",0],["dog",1],["mouse",2],["prop0-3",3],["prop0-4",4]]});
+					.mock(/potato/, mockKeenData(5));
+				return testQuery('potato->count()->group(prop0)->relabel(prop0,cat,dog,mouse)',
+					{"headings":["prop0","count potato"],"rows":[["cat",0],["dog",1],["mouse",2],["prop0-3",3],["prop0-4",4]]});
 			});
 
 			it('should be possible to relabel a table', () => {
 				fetchMock
-						.mock(/potato/, mockKeenData(5,4));
-					return testQuery('potato->count()->group(prop0,prop1)->relabel(prop1,cat,dog,mouse)',
-						{"headings":["prop0","cat","dog","mouse","prop1-3"],"rows":[["prop0-0",0,1,2,3],["prop0-1",10,11,12,13],["prop0-2",20,21,22,23],["prop0-3",30,31,32,33],["prop0-4",40,41,42,43]]});
+					.mock(/potato/, mockKeenData(5,4));
+				return testQuery('potato->count()->group(prop0,prop1)->relabel(prop1,cat,dog,mouse)',
+					{"headings":["prop0","cat","dog","mouse","prop1-3"],"rows":[["prop0-0",0,1,2,3],["prop0-1",10,11,12,13],["prop0-2",20,21,22,23],["prop0-3",30,31,32,33],["prop0-4",40,41,42,43]]});
 			});
 
 			it('should be possible to plot a threshold', () => {
 				fetchMock
-						.mock(/potato/, mockKeenData({size: [5], props: ['timeframe']}));
-					return testQuery('potato->count()->group(prop0)->interval(d)->plotThreshold(180,limit)',
-						{"headings":["timeframe","undefined","limit"],"rows":[["timeframe-0",0,180],["timeframe-1",0,180],["timeframe-2",0,180],["timeframe-3",0,180],["timeframe-4",0,180]]});
+					.mock(/potato/, mockKeenData({size: [5], props: ['timeframe']}));
+				return testQuery('potato->count()->group(prop0)->interval(d)->plotThreshold(180,limit)',
+					{"headings":["timeframe","undefined","limit"],"rows":[["timeframe-0",0,180],["timeframe-1",0,180],["timeframe-2",0,180],["timeframe-3",0,180],["timeframe-4",0,180]]});
 			});
 		});
-// - `sort(dimension, value)` **TODO (please request)**
-// - `sortAsc([reduction,dimension])`
-// - `sortDesc([reduction,dimension])`
-// -cutoff
-// - `sortProp(property,value1,value2,...)` Sorts rows in the result according to values in the `property` axis, in the order given
 
+		describe('sorting', () => {
+			it('should sort a column descending', () => {
+				fetchMock
+					.mock(/potato/, mockKeenData(5));
+				return testQuery('potato->count()->group(prop0)->sortDesc()',
+					{"headings":["prop0","count potato"],"rows":[["prop0-4",4],["prop0-3",3],["prop0-2",2],["prop0-1",1],["prop0-0",0]]});
+			});
 
-// test-threshold:
-// 	node ./bin/keen-query.js 'cta:click->count()->group(page.location.type)->interval(d)->relTime(3)->threshold(5000,minimumlevel)'
-// test-sort:
-// 	node ./bin/keen-query.js 'page:view->count()->group(page.location.type,device.oGridLayout)->relTime(3)->sortDesc(min,device.oGridLayout)'
-// 	node ./bin/keen-query.js 'page:view->count(user.uuid)->group(device.oGridLayout)->sortProp(device.oGridLayout,default,XS,S,M,L,XL,XXL)'
-// 	node ./bin/keen-query.js 'page:view->count(user.uuid)->group(device.oGridLayout)->interval(d)->sortProp(device.oGridLayout,default,XS,S,M,L,XL,XXL)'
-// 	node ./bin/keen-query.js 'page:view->count(user.uuid)->group(device.oGridLayout)->group(page.location.type)->sortProp(device.oGridLayout,default,XS,S,M,L,XL,XXL)'
-// 	# node ./bin/keen-query.js 'cta:click->count()->group(page.location.type)->relTime(3)->sortAsc()'
-// 	# node ./bin/keen-query.js 'cta:click->count(user.uuid)->interval(d)->group(page.location.type)->relTime(3)->reduce(all)'
-// 	# node ./bin/keen-query.js '@ratio(cta:click->count(),cta:click->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)'
-// 	# node ./bin/keen-query.js '@ratio(cta:click->count(),cta:click->count(user.uuid))->interval(d)->group(page.location.type)->relTime(3)->reduce(avg)'
+			it('should sort a column ascending', () => {
+				fetchMock
+					.mock(/potato/, {result:[
+						{ prop0: 'prop0-0', result: 4 },
+						{ prop0: 'prop0-1', result: 3 },
+						{ prop0: 'prop0-2', result: 2 },
+						{ prop0: 'prop0-3', result: 1 },
+						{ prop0: 'prop0-4', result: 0 }
+					]});
+				return testQuery('potato->count()->group(prop0)->sortAsc()',
+					{"headings":["prop0","count potato"],"rows":[["prop0-4",0],["prop0-3",1],["prop0-2",2],["prop0-1",3],["prop0-0",4]]});
+			});
 
+			it.skip('Should sort a table based on avg by default', function () {
 
-// test-cutoff:
-// 	node ./bin/keen-query.js 'cta:click->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->top(2)'
-// 	node ./bin/keen-query.js 'cta:click->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->top(20,percent)'
-// 	node ./bin/keen-query.js 'cta:click->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->bottom(2)'
-// 	node ./bin/keen-query.js 'cta:click->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->bottom(20,percent)'
-// 	node ./bin/keen-query.js 'cta:click->count()->filter(user.uuid)->group(page.location.type)->relTime(3)->cutoff(10000)'
+			})
 
-// test-err:
-// 	node ./bin/keen-query.js '@pct(site:optout->count(user.uuid)->group(device.oGridLayout),page:view->count(user.uuid)->group(device.oGridLayout)->filter(device.oGridLayout?L,M))->round()->interval(d)'
+			it.skip('Should sort a table based on a custom reduction', function () {
 
+			})
+		});
+
+		describe('cutoff', () => {
+			it('should discard values smaller than a value', () => {
+				fetchMock
+					.mock(/potato/, mockKeenData(5));
+				return testQuery('potato->count()->group(prop0)->cutoff(2)',
+					{"headings":["prop0","count potato"],"rows":[["prop0-4",4],["prop0-3",3],["prop0-2",2]]});
+			});
+
+			it('should discard values smaller than a percentage of the total', () => {
+				fetchMock
+					.mock(/potato/, mockKeenData(8));
+				return testQuery('potato->count()->group(prop0)->cutoff(10,percent)',
+					{"headings":["prop0","count potato"],"rows":[["prop0-7",7],["prop0-6",6],["prop0-5",5],["prop0-4",4],["prop0-3",3]]})
+			});
+
+			it.skip('should figure out how to do cutoff for tables', () => {});
+
+		});
+
+		describe('top and bottom', () => {
+			it('should show top n values', () => {
+				fetchMock
+					.mock(/potato/, mockKeenData(5));
+				return testQuery('potato->count()->group(prop0)->top(2)',
+					{"headings":["prop0","count potato"],"rows":[["prop0-4",4],["prop0-3",3]]});
+			});
+
+			it('should show top n percent of values', () => {
+				fetchMock
+					.mock(/potato/, mockKeenData(8));
+				return testQuery('potato->count()->group(prop0)->top(40,percent)',
+					{"headings":["prop0","count potato"],"rows":[["prop0-7",7],["prop0-6",6],["prop0-5",5]]});
+			});
+
+			it('should show bottom n values', () => {
+				fetchMock
+					.mock(/potato/, mockKeenData(5));
+				return testQuery('potato->count()->group(prop0)->bottom(2)',
+					{"headings":["prop0","count potato"],"rows":[["prop0-0",0],["prop0-1",1]]});
+			});
+
+			it('should show bottom n percent of values', () => {
+				fetchMock
+					.mock(/potato/, mockKeenData(8));
+				return testQuery('potato->count()->group(prop0)->bottom(40,percent)',
+					{"headings":["prop0","count potato"],"rows":[["prop0-0",0],["prop0-1",1],["prop0-2",2]]});
+			});
+
+			it.skip('should figure out how to do top and bottom for tables', () => {});
+		});
 	});
 });
