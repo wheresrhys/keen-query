@@ -1,6 +1,6 @@
 {
   "name": "keen-query",
-  "version": "2.22.6",
+  "version": "2.22.7",
   "description": "",
   "main": "lib/index.js",
   "dependencies": {
