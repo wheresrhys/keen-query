@@ -3,11 +3,11 @@
 const KeenQuery = require('../lib/index.js')
 const expect = require('chai').expect
 
-describe('converting explorer urls into keen queries', () => {
+describe.skip('converting explorer urls into keen queries', () => {
 
 });
 
-describe('converting keen api urls into keen queries', () => {
+describe.skip('converting keen api urls into keen queries', () => {
 
 });
 

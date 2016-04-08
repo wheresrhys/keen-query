@@ -10,6 +10,7 @@ const fetchMock = require('fetch-mock');
 // opts takes
 // size: [2, 3] - size of dimensions
 // gapsAt: [[1,1],[2,2]] - location of any gaps in the table. Note
+// props (optional) list of propnames. defaults to prop0, prop1 etc
 // can also pass in some numbers as arguments, which will be converted to {opts.size: [number, number, ...]}
 function mockKeenData (opts) {
 	if (typeof opts === 'number') {
@@ -17,7 +18,7 @@ function mockKeenData (opts) {
 			size: [].slice.call(arguments)
 		}
 	}
-	const bucketeers = opts.size.map((n, i) => Array(n+1).join('.').split(''));
+	const bucketeers = opts.size.map(n => Array(n+1).join('.').split(''));
 	let buckets = [{}];
 
 	const props = opts.props || bucketeers.map((val, i) => `prop${i}`);
@@ -544,4 +545,48 @@ describe('Data manipulation', () => {
 			it.skip('should figure out how to do top and bottom for tables', () => {});
 		});
 	});
+
+	const dateData = require('./fixtures/date');
+	const dateDeviceData = require('./fixtures/date,device');
+	const dateDeviceLayoutData = require('./fixtures/date,device,layout');
+
+	describe('coping with timeframes', () => {
+
+		it('can do complex stuff with data grouped by date', () => {
+			fetchMock
+				.mock(/page%3Aview/, dateData);
+			return testQuery('page:view->count()->interval(d)->bottom(40,percent)',
+				{"headings":["timeframe","count page:view"],"rows":[[{"start":"2016-03-26T00:00:00.000Z","end":"2016-03-27T00:00:00.000Z"},14114],[{"start":"2016-04-03T00:00:00.000Z","end":"2016-04-04T00:00:00.000Z"},14813],[{"start":"2016-04-02T00:00:00.000Z","end":"2016-04-03T00:00:00.000Z"},14916],[{"start":"2016-03-27T00:00:00.000Z","end":"2016-03-28T00:00:00.000Z"},14919],[{"start":"2016-03-25T00:00:00.000Z","end":"2016-03-26T00:00:00.000Z"},24718]]});
+		});
+
+		it('can do complex stuff with data grouped by date and another property', () => {
+			fetchMock
+				.mock(/page%3Aview.*group/, dateDeviceData)
+				.mock(/page%3Aview/, dateData);
+			return testQuery('@ratio(page:view->count()->group(device.primaryHardwareType), page:view->count())->interval(d)',
+				{"headings":["timeframe","Desktop","Mobile Phone","Tablet"],"rows":[[{"start":"2016-03-26T00:00:00.000Z","end":"2016-03-27T00:00:00.000Z"},8.77235369137027,8.755703556752161,8.72644183080629],[{"start":"2016-03-27T00:00:00.000Z","end":"2016-03-28T00:00:00.000Z"},8.309203029693679,8.284670554326697,8.254038474428581],[{"start":"2016-03-28T00:00:00.000Z","end":"2016-03-29T00:00:00.000Z"},49.644446235692406,4.98617604384975,4.966749959696921],[{"start":"2016-03-29T00:00:00.000Z","end":"2016-03-30T00:00:00.000Z"},35.316627527349794,3.539864826164156,3.5276934532332893],[{"start":"2016-03-30T00:00:00.000Z","end":"2016-03-31T00:00:00.000Z"},36.014876516147886,3.614116615519509,3.5982756101125237],[{"start":"2016-03-31T00:00:00.000Z","end":"2016-04-01T00:00:00.000Z"},36.215702989505864,3.6339398571386576,3.6207119550839235],[{"start":"2016-04-01T00:00:00.000Z","end":"2016-04-02T00:00:00.000Z"},36.01712899359855,3.6136622723685363,3.5983455613691504],[{"start":"2016-04-02T00:00:00.000Z","end":"2016-04-03T00:00:00.000Z"},8.306717618664521,8.274403325288281,8.257240547063557],[{"start":"2016-04-03T00:00:00.000Z","end":"2016-04-04T00:00:00.000Z"},83.10571795044893,8.342739485586984,8.316883818267737],[{"start":"2016-04-04T00:00:00.000Z","end":"2016-04-05T00:00:00.000Z"},27.47109775105767,2.759318637274549,2.7445557782231127],[{"start":"2016-04-05T00:00:00.000Z","end":"2016-04-06T00:00:00.000Z"},28.025194811095712,2.8095962923415954,2.8001226798736853],[{"start":"2016-04-06T00:00:00.000Z","end":"2016-04-07T00:00:00.000Z"},27.968669946271906,2.8066015279635463,2.793384869987078],[{"start":"2016-04-07T00:00:00.000Z","end":"2016-04-08T00:00:00.000Z"},35.95086696779834,3.6051580941279324,3.592423138569139],[{"start":"2016-04-08T00:00:00.000Z","end":"2016-04-09T00:00:00.000Z"},0,0,0]]});
+		});
+
+		it('can concat data grouped by date to data grouped by date and another property', () => {
+			fetchMock
+				.mock(/page%3Aview.*group/, dateDeviceData)
+				.mock(/page%3Aview/, dateData);
+			return testQuery('@concat(page:view->count()->group(device.primaryHardwareType), page:view->count())->interval(d)->sortProp(device.primaryHardwareType,count page:view)->relabel(device.primaryHardwareType,total)',
+				{"headings":["timeframe","total","Desktop","Mobile Phone","Tablet"],"rows":[[{"start":"2016-03-26T00:00:00.000Z","end":"2016-03-27T00:00:00.000Z"},24718,123813,123578,123165],[{"start":"2016-03-27T00:00:00.000Z","end":"2016-03-28T00:00:00.000Z"},14114,123965,123599,123142],[{"start":"2016-03-28T00:00:00.000Z","end":"2016-03-29T00:00:00.000Z"},14919,1231778,123717,123235],[{"start":"2016-03-29T00:00:00.000Z","end":"2016-03-30T00:00:00.000Z"},24812,1233186,123605,123180],[{"start":"2016-03-30T00:00:00.000Z","end":"2016-03-31T00:00:00.000Z"},34918,1232249,123657,123115],[{"start":"2016-03-31T00:00:00.000Z","end":"2016-04-01T00:00:00.000Z"},34215,1232022,123623,123173],[{"start":"2016-04-01T00:00:00.000Z","end":"2016-04-02T00:00:00.000Z"},34019,1232182,123627,123103],[{"start":"2016-04-02T00:00:00.000Z","end":"2016-04-03T00:00:00.000Z"},34211,123903,123421,123165],[{"start":"2016-04-03T00:00:00.000Z","end":"2016-04-04T00:00:00.000Z"},14916,1231045,123581,123198],[{"start":"2016-04-04T00:00:00.000Z","end":"2016-04-05T00:00:00.000Z"},14813,1233727,123921,123258],[{"start":"2016-04-05T00:00:00.000Z","end":"2016-04-06T00:00:00.000Z"},44910,1233585,123670,123253],[{"start":"2016-04-06T00:00:00.000Z","end":"2016-04-07T00:00:00.000Z"},44017,1233726,123802,123219],[{"start":"2016-04-07T00:00:00.000Z","end":"2016-04-08T00:00:00.000Z"},44111,1233654,123711,123274],[{"start":"2016-04-08T00:00:00.000Z","end":"2016-04-09T00:00:00.000Z"},34315,1231140,123221,12360]]});
+		});
+
+		it.skip('can concat data grouped by property to data grouped by date and property', () => {
+			fetchMock
+				.mock(/page%3Aview.*group/, dateDeviceData);
+			return testQuery('@concat(page:view->count()->group(device.primaryHardwareType), page:view->count()->group(device.primaryHardwareType)->reduce(max,timeframe))->interval(d)');
+		});
+
+		it('can do complex stuff with data grouped by date and other properties', () => {
+			fetchMock
+				.mock(/page%3Aview/, dateDeviceLayoutData)
+			return testQuery('page:view->count()->group(device.primaryHardwareType,device.oGridLayout)->interval(d)->reduce(avg,device.oGridLayout)->reduce(max,timeframe)',
+				{"headings":["device.primaryHardwareType","count page:view (avg: device.oGridLayout) (max: timeframe)"],"rows":[["Desktop",845967.5555555555],["Mobile Phone",82384.55555555556],["Tablet",88403.11111111111]]});
+
+		});
+	})
 });
