@@ -164,8 +164,8 @@ If a third paramter is set to `true` a table will be returned that concatenates 
 - `sort(dimension, value)` **TODO (please request)**
 - `multiply(n)` Multiplies each value by `n`
 - `divide(n)` Divides each value by n
-- `sortAsc([reduction,dimension])`
-- `sortDesc([reduction,dimension])`
+- `sortAsc()` (1 dimensional tables only)
+- `sortDesc()` (1 dimensional tables only)
 - `sortProp(property,value1,value2,...)` Sorts rows in the result according to values in the `property` axis, in the order given
 - `plotThreshold(value, name)` For graphs over time, draws an additional line fixed at the given value
 - `relabel(property,value1,value2,...)` relabels the data labels in the `property` axis (unwise to use this unless e.g using @concat on a preditable set of values, or if using `->sortProp()` first)
@@ -174,6 +174,8 @@ If a third paramter is set to `true` a table will be returned that concatenates 
 
 - `top(n,[percent])`/ `bottom(n,[percent])` shows the top/bottom n (or n percent) of results
 - `cutoff(n,[percent])` ignore all values smaller than n (or n percent of the total)
+- `sortAsc(prop,[reduction,dimension])`
+- `sortDesc(prop,[reduction,dimension])`
 
 ### Outputting data
 
