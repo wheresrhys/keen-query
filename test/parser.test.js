@@ -118,7 +118,6 @@ describe('Parsing keen queries', function () {
 								"params": []
 							}
 						],
-						"postProcessing": [],
 						"print": undefined
 					},
 					{
@@ -131,11 +130,9 @@ describe('Parsing keen queries', function () {
 								]
 							}
 						],
-						"postProcessing": [],
 						"print": undefined
 					}
 				],
-				"postProcessing": undefined,
 				"print": undefined
 			});
 		});
@@ -152,7 +149,6 @@ describe('Parsing keen queries', function () {
 								"params": []
 							}
 						],
-						"postProcessing": [],
 						"print": undefined
 					},
 					{
@@ -165,11 +161,9 @@ describe('Parsing keen queries', function () {
 								]
 							}
 						],
-						"postProcessing": [],
 						"print": undefined
 					}
 				],
-				"postProcessing": undefined,
 				"print": undefined
 			});
 		});
@@ -186,7 +180,6 @@ describe('Parsing keen queries', function () {
 								"params": []
 							}
 						],
-						"postProcessing": [],
 						"print": undefined
 					},
 					{
@@ -199,11 +192,9 @@ describe('Parsing keen queries', function () {
 								]
 							}
 						],
-						"postProcessing": [],
 						"print": undefined
 					}
 				],
-				"postProcessing": undefined,
 				"print": undefined
 			});
 		});
@@ -220,7 +211,6 @@ describe('Parsing keen queries', function () {
 								"params": []
 							}
 						],
-						"postProcessing": [],
 						"print": undefined
 					},
 					{
@@ -233,7 +223,6 @@ describe('Parsing keen queries', function () {
 								]
 							}
 						],
-						"postProcessing": [],
 						"print": undefined
 					},
 					{
@@ -246,11 +235,9 @@ describe('Parsing keen queries', function () {
 								]
 							}
 						],
-						"postProcessing": [],
 						"print": undefined
 					}
 				],
-				"postProcessing": undefined,
 				"print": undefined
 			});
 		});
@@ -267,7 +254,6 @@ describe('Parsing keen queries', function () {
 								"params": []
 							}
 						],
-						"postProcessing": [],
 						"print": undefined
 					},
 					{
@@ -280,7 +266,6 @@ describe('Parsing keen queries', function () {
 								]
 							}
 						],
-						"postProcessing": [],
 						"print": undefined
 					},
 					{
@@ -293,11 +278,9 @@ describe('Parsing keen queries', function () {
 								]
 							}
 						],
-						"postProcessing": [],
 						"print": undefined
 					}
 				],
-				"postProcessing": undefined,
 				"print": undefined
 			});
 		});
