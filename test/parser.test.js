@@ -108,19 +108,22 @@ describe('Parsing keen queries', function () {
 	describe('aggregators', function () {
 		it('can do ratios', function () {
 			expect(parser('@ratio(coll->count(),coll->count(user))')).to.deep.equal({
-				"aggregator": "@ratio",
+				"type": 'AggregateQuery',
+				'functions': [],
+				"aggregator": "ratio",
 				"body": [
 					{
+						"type": 'KeenQuery',
 						"event": "coll",
 						"functions": [
 							{
 								"func": "count",
 								"params": []
 							}
-						],
-						"print": undefined
+						]
 					},
 					{
+						"type": 'KeenQuery',
 						"event": "coll",
 						"functions": [
 							{
@@ -129,29 +132,30 @@ describe('Parsing keen queries', function () {
 									"user"
 								]
 							}
-						],
-						"print": undefined
+						]
 					}
-				],
-				"print": undefined
+				]
 			});
 		});
 
 		it('can do pct', function () {
 			expect(parser('@pct(coll->count(),coll->count(user))')).to.deep.equal({
-				"aggregator": "@pct",
+				"type": 'AggregateQuery',
+				'functions': [],
+				"aggregator": "pct",
 				"body": [
 					{
+						"type": 'KeenQuery',
 						"event": "coll",
 						"functions": [
 							{
 								"func": "count",
 								"params": []
 							}
-						],
-						"print": undefined
+						]
 					},
 					{
+						"type": 'KeenQuery',
 						"event": "coll",
 						"functions": [
 							{
@@ -160,29 +164,30 @@ describe('Parsing keen queries', function () {
 									"user"
 								]
 							}
-						],
-						"print": undefined
+						]
 					}
-				],
-				"print": undefined
+				]
 			});
 		});
 
 		it('can do sums', function () {
 			expect(parser('@sum(coll->count(),coll->count(user))')).to.deep.equal({
-				"aggregator": "@sum",
+				"type": 'AggregateQuery',
+				'functions': [],
+				"aggregator": "sum",
 				"body": [
 					{
+						"type": 'KeenQuery',
 						"event": "coll",
 						"functions": [
 							{
 								"func": "count",
 								"params": []
 							}
-						],
-						"print": undefined
+						]
 					},
 					{
+						"type": 'KeenQuery',
 						"event": "coll",
 						"functions": [
 							{
@@ -191,29 +196,30 @@ describe('Parsing keen queries', function () {
 									"user"
 								]
 							}
-						],
-						"print": undefined
+						]
 					}
-				],
-				"print": undefined
+				]
 			});
 		});
 
 		it('can do concatenation', function () {
-			expect(parser('@concat(coll->count(),coll->count(user),coll2->avg(thing))')).to.deep.equal({
-				"aggregator": "@concat",
+			expect(parser('@concat(coll->count(),coll->count(user),collTwo->avg(thing))')).to.deep.equal({
+				"type": 'AggregateQuery',
+				'functions': [],
+				"aggregator": "concat",
 				"body": [
 					{
+						"type": 'KeenQuery',
 						"event": "coll",
 						"functions": [
 							{
 								"func": "count",
 								"params": []
 							}
-						],
-						"print": undefined
+						]
 					},
 					{
+						"type": 'KeenQuery',
 						"event": "coll",
 						"functions": [
 							{
@@ -222,11 +228,11 @@ describe('Parsing keen queries', function () {
 									"user"
 								]
 							}
-						],
-						"print": undefined
+						]
 					},
 					{
-						"event": "coll2",
+						"type": 'KeenQuery',
+						"event": "collTwo",
 						"functions": [
 							{
 								"func": "avg",
@@ -234,29 +240,30 @@ describe('Parsing keen queries', function () {
 									"thing"
 								]
 							}
-						],
-						"print": undefined
+						]
 					}
-				],
-				"print": undefined
+				]
 			});
 		});
 
 		it('can do funnels', function () {
-			expect(parser('@funnel(coll->count(),coll->count(user),coll2->avg(thing))')).to.deep.equal({
-				"aggregator": "@funnel",
+			expect(parser('@funnel(coll->count(),coll->count(user),collTwo->avg(thing))')).to.deep.equal({
+				"type": 'AggregateQuery',
+				'functions': [],
+				"aggregator": "funnel",
 				"body": [
 					{
+						"type": 'KeenQuery',
 						"event": "coll",
 						"functions": [
 							{
 								"func": "count",
 								"params": []
 							}
-						],
-						"print": undefined
+						]
 					},
 					{
+						"type": 'KeenQuery',
 						"event": "coll",
 						"functions": [
 							{
@@ -265,11 +272,11 @@ describe('Parsing keen queries', function () {
 									"user"
 								]
 							}
-						],
-						"print": undefined
+						]
 					},
 					{
-						"event": "coll2",
+						"type": 'KeenQuery',
+						"event": "collTwo",
 						"functions": [
 							{
 								"func": "avg",
@@ -277,11 +284,9 @@ describe('Parsing keen queries', function () {
 									"thing"
 								]
 							}
-						],
-						"print": undefined
+						]
 					}
-				],
-				"print": undefined
+				]
 			});
 		});
 
