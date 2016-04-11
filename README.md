@@ -166,9 +166,9 @@ If a third paramter is set to `true` a table will be returned that concatenates 
 - `divide(n)` Divides each value by n
 - `sortAsc()` (1 dimensional tables only)
 - `sortDesc()` (1 dimensional tables only)
-- `sortProp(property,value1,value2,...)` Sorts rows in the result according to values in the `property` axis, in the order given
+- `reorder(property,value1,value2,...)` Sorts rows in the result according to values in the `property` axis, in the order given
 - `plotThreshold(value, name)` For graphs over time, draws an additional line fixed at the given value
-- `relabel(property,value1,value2,...)` relabels the data labels in the `property` axis (unwise to use this unless e.g using @concat on a preditable set of values, or if using `->sortProp()` first)
+- `relabel(property,value1,value2,...)` relabels the data labels in the `property` axis (unwise to use this unless e.g using @concat on a preditable set of values, or if using `->reorder()` first)
 
 #### Experimental
 

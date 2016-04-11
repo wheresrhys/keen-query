@@ -121,7 +121,7 @@ describe('Data manipulation', () => {
 					.mock(/tomato/, {result: 2})
 					.mock(/apple/, {result: 3});
 				return testQuery('@concat(potato->count(),tomato->count(),apple->count())',
-					{"headings":["CONCATENATION_RESULT",undefined],"rows":[["count potato",1],["count tomato",2],["count apple",3]]})
+					{"headings":["_headings",undefined],"rows":[["count potato",1],["count tomato",2],["count apple",3]]})
 			});
 
 
@@ -358,14 +358,14 @@ describe('Data manipulation', () => {
 			it('should be possible to reorder a column', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(5));
-				return testQuery('potato->count()->group(prop0)->sortProp(prop0,prop0-4,prop0-2)',
+				return testQuery('potato->count()->group(prop0)->reorder(prop0,prop0-4,prop0-2)',
 					{"headings":["prop0","count potato"],"rows":[["prop0-4",4],["prop0-2",2],["prop0-0",0],["prop0-1",1],["prop0-3",3]]});
 			});
 
 			it('should be possible to reorder a table', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(5,4));
-				return testQuery('potato->count()->group(prop0,prop1)->sortProp(prop1,prop1-3,prop1-2)->sortProp(prop0,prop0-4,prop0-2)',
+				return testQuery('potato->count()->group(prop0,prop1)->reorder(prop1,prop1-3,prop1-2)->reorder(prop0,prop0-4,prop0-2)',
 					{"headings":["prop0","prop1-3","prop1-2","prop1-0","prop1-1"],"rows":[["prop0-4",43,42,40,41],["prop0-2",23,22,20,21],["prop0-0",3,2,0,1],["prop0-1",13,12,10,11],["prop0-3",33,32,30,31]]});
 			});
 
@@ -498,7 +498,7 @@ describe('Data manipulation', () => {
 			fetchMock
 				.mock(/page%3Aview.*group/, dateDeviceData)
 				.mock(/page%3Aview/, dateData);
-			return testQuery('@concat(page:view->count()->group(device.primaryHardwareType), page:view->count())->interval(d)->sortProp(device.primaryHardwareType,count page:view)->relabel(device.primaryHardwareType,total)',
+			return testQuery('@concat(page:view->count()->group(device.primaryHardwareType), page:view->count())->interval(d)->reorder(device.primaryHardwareType,count page:view)->relabel(device.primaryHardwareType,total)',
 				{"headings":["timeframe","total","Desktop","Mobile Phone","Tablet"],"rows":[[{"start":"2016-03-26T00:00:00.000Z","end":"2016-03-27T00:00:00.000Z"},24718,123813,123578,123165],[{"start":"2016-03-27T00:00:00.000Z","end":"2016-03-28T00:00:00.000Z"},14114,123965,123599,123142],[{"start":"2016-03-28T00:00:00.000Z","end":"2016-03-29T00:00:00.000Z"},14919,1231778,123717,123235],[{"start":"2016-03-29T00:00:00.000Z","end":"2016-03-30T00:00:00.000Z"},24812,1233186,123605,123180],[{"start":"2016-03-30T00:00:00.000Z","end":"2016-03-31T00:00:00.000Z"},34918,1232249,123657,123115],[{"start":"2016-03-31T00:00:00.000Z","end":"2016-04-01T00:00:00.000Z"},34215,1232022,123623,123173],[{"start":"2016-04-01T00:00:00.000Z","end":"2016-04-02T00:00:00.000Z"},34019,1232182,123627,123103],[{"start":"2016-04-02T00:00:00.000Z","end":"2016-04-03T00:00:00.000Z"},34211,123903,123421,123165],[{"start":"2016-04-03T00:00:00.000Z","end":"2016-04-04T00:00:00.000Z"},14916,1231045,123581,123198],[{"start":"2016-04-04T00:00:00.000Z","end":"2016-04-05T00:00:00.000Z"},14813,1233727,123921,123258],[{"start":"2016-04-05T00:00:00.000Z","end":"2016-04-06T00:00:00.000Z"},44910,1233585,123670,123253],[{"start":"2016-04-06T00:00:00.000Z","end":"2016-04-07T00:00:00.000Z"},44017,1233726,123802,123219],[{"start":"2016-04-07T00:00:00.000Z","end":"2016-04-08T00:00:00.000Z"},44111,1233654,123711,123274],[{"start":"2016-04-08T00:00:00.000Z","end":"2016-04-09T00:00:00.000Z"},34315,1231140,123221,12360]]});
 		});
 
