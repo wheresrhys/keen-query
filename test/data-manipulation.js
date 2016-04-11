@@ -432,7 +432,7 @@ describe('Data manipulation', () => {
 			it('should discard values smaller than a percentage of the total', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(8));
-				return testQuery('potato->count()->group(prop0)->cutoff(10,percent)',
+				return testQuery('potato->count()->group(prop0)->cutoff(10%)',
 					{"headings":["prop0","count potato"],"rows":[["prop0-7",7],["prop0-6",6],["prop0-5",5],["prop0-4",4],["prop0-3",3]]})
 			});
 
@@ -451,7 +451,7 @@ describe('Data manipulation', () => {
 			it('should show top n percent of values', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(8));
-				return testQuery('potato->count()->group(prop0)->top(40,percent)',
+				return testQuery('potato->count()->group(prop0)->top(40%)',
 					{"headings":["prop0","count potato"],"rows":[["prop0-7",7],["prop0-6",6],["prop0-5",5]]});
 			});
 
@@ -465,7 +465,7 @@ describe('Data manipulation', () => {
 			it('should show bottom n percent of values', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(8));
-				return testQuery('potato->count()->group(prop0)->bottom(40,percent)',
+				return testQuery('potato->count()->group(prop0)->bottom(40%)',
 					{"headings":["prop0","count potato"],"rows":[["prop0-0",0],["prop0-1",1],["prop0-2",2]]});
 			});
 
@@ -482,7 +482,7 @@ describe('Data manipulation', () => {
 		it('can do complex stuff with data grouped by date', () => {
 			fetchMock
 				.mock(/page%3Aview/, dateData);
-			return testQuery('page:view->count()->interval(d)->bottom(40,percent)',
+			return testQuery('page:view->count()->interval(d)->bottom(40%)',
 				{"headings":["timeframe","count page:view"],"rows":[[{"start":"2016-03-26T00:00:00.000Z","end":"2016-03-27T00:00:00.000Z"},14114],[{"start":"2016-04-03T00:00:00.000Z","end":"2016-04-04T00:00:00.000Z"},14813],[{"start":"2016-04-02T00:00:00.000Z","end":"2016-04-03T00:00:00.000Z"},14916],[{"start":"2016-03-27T00:00:00.000Z","end":"2016-03-28T00:00:00.000Z"},14919],[{"start":"2016-03-25T00:00:00.000Z","end":"2016-03-26T00:00:00.000Z"},24718]]});
 		});
 

@@ -172,8 +172,8 @@ If a third paramter is set to `true` a table will be returned that concatenates 
 
 #### Experimental
 
-- `top(n,[percent])`/ `bottom(n,[percent])` shows the top/bottom n (or n percent) of results
-- `cutoff(n,[percent])` ignore all values smaller than n (or n percent of the total)
+- `top(n)`/ `bottom(n)` shows the top/bottom n (or n percent if the last character is '%') of results
+- `cutoff(n)` ignore all values smaller than n (or n percent if the last character is '%')
 - `sortAsc(prop,[reduction,dimension])`
 - `sortDesc(prop,[reduction,dimension])`
 
