@@ -187,7 +187,7 @@ There are a few built in methods for outputting data
 | JSON representation of the query | `->print(qo)` | `kq.print('qo') |
 | Stringified JSON representation of the query | `->print(qs)` | `kq.print('qs') |
 | The raw JSON response(s) from Keen | `->print(raw)` | `kq.print('raw') |
-| Normalised JSON of the response (a 2 dimensional matrix with headings) | `->print(json)` | `kq.print('json') |
+| Flattened matrix representation of the response | `->print(matrix)` | `kq.print('matrix') |
 | Prints out an ASCII table of the results | `->print(ascii)` | `kq.print('ascii') |
 
 `KeenQuery.definePrinter(name, func)` can be used to define your own printers (e.g. to output a graph to the DOM). Within `func`, `this` will point at the current KeenQuery instance, and `this.getTable()` will give access to an object with the following properties and methods:
@@ -226,5 +226,4 @@ the Keen data with all aggregations, reductions etc. already applied.
 ### Utilities
 
 - KeenQuery.parseFilter(str) - converts a string compatible with the above syntax into a Keen filter object
-- KeenQuery.forceQuery(func) - the function will be run as part of every query. Useful for e.g. excluding test data from results
 - KeenQuery.defineQuery(name, func) - defines a method `name` which can be used as part of a keen-query string or in the JS API.
