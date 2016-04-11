@@ -1,4 +1,8 @@
 const KeenQuery = require('../lib');
+KeenQuery.setConfig({
+	KEEN_PROJECT_ID: 'test_proj',
+	KEEN_READ_KEY: 'test_key'
+});
 const Aggregator = require('../lib/aggregator');
 const expect = require('chai').expect;
 const fetchMock = require('fetch-mock');
