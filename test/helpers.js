@@ -71,7 +71,7 @@ function log (data) {
 }
 
 module.exports.testQuery = function (kq, expected) {
-	const promise = KeenQuery.build(kq).print('json')
+	const promise = KeenQuery.build(kq).print('matrix')
 	if (!expected) {
 		promise.then(log)
 	}

@@ -16,7 +16,7 @@ describe('regression tests', () => {
 		const kq = KeenQuery.build('potato->count()->group(prop0,prop1)');
 
 		return kq
-			.print('json')
+			.print('matrix')
 			.then(data1 => {
 				return kq.clone(true)
 					.print()
@@ -36,7 +36,7 @@ describe('regression tests', () => {
 		const kq = KeenQuery.build('@ratio(potato->count()->group(prop0,prop1),potato->count()->group(prop0,prop1))');
 
 		return kq
-			.print('json')
+			.print('matrix')
 			.then(data1 => {
 				return kq.clone(true)
 					.print()
