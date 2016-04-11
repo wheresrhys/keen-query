@@ -198,7 +198,7 @@ describe('Data manipulation', () => {
 			it('will reduce a column', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(3));
-				return testQuery('potato->count()->group(prop0)->reduce(sum,prop0)',
+				return testQuery('potato->count()->group(prop0)->reduce(prop0,sum)',
 					{"rows":[["count potato (sum: prop0)",3]]})
 			});
 
@@ -206,77 +206,77 @@ describe('Data manipulation', () => {
 			it('will reduce a table by first dimension', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(3, 3));
-				return testQuery('potato->count()->group(prop0,prop1)->reduce(sum,prop0)',
+				return testQuery('potato->count()->group(prop0,prop1)->reduce(prop0,sum)',
 					{"headings":["prop1","count potato (sum: prop0)"],"rows":[["prop1-0",30],["prop1-1",33],["prop1-2",36]]});
 			});
 
 			it('will reduce a table by second dimension', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(3, 3));
-				return testQuery('potato->count()->group(prop0,prop1)->reduce(sum,prop1)',
+				return testQuery('potato->count()->group(prop0,prop1)->reduce(prop1,sum)',
 					{"headings":["prop0","count potato (sum: prop1)"],"rows":[["prop0-0",3],["prop0-1",33],["prop0-2",63]]});
 			});
 
 			it('will reduce a higher order table by choice of dimension', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(3, 3, 4));
-				return testQuery('potato->count()->group(prop0,prop1,prop2)->reduce(sum,prop1)',
+				return testQuery('potato->count()->group(prop0,prop1,prop2)->reduce(prop1,sum)',
 					{"headings":["prop0","prop2-0","prop2-1","prop2-2","prop2-3"],"rows":[["prop0-0",30,33,36,39],["prop0-1",330,333,336,339],["prop0-2",630,633,636,639]]});
 			});
 
 			it('will average', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(8));
-				return testQuery('potato->count()->group(prop0)->reduce(avg,prop0)',
+				return testQuery('potato->count()->group(prop0)->reduce(prop0,avg)',
 					{"rows":[["count potato (avg: prop0)",3.5]]})
 			});
 
 			it('will sum', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(8));
-				return testQuery('potato->count()->group(prop0)->reduce(sum,prop0)',
+				return testQuery('potato->count()->group(prop0)->reduce(prop0,sum)',
 					{"rows":[["count potato (sum: prop0)",28]]})
 			});
 
 			it('will find minimum', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(8));
-				return testQuery('potato->count()->group(prop0)->reduce(min,prop0)',
+				return testQuery('potato->count()->group(prop0)->reduce(prop0,min)',
 					{"rows":[["count potato (min: prop0)",0]]})
 			});
 
 			it('will find maximum', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(8));
-				return testQuery('potato->count()->group(prop0)->reduce(max,prop0)',
+				return testQuery('potato->count()->group(prop0)->reduce(prop0,max)',
 					{"rows":[["count potato (max: prop0)",7]]})
 			});
 
 			it('will find median', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(7));
-				return testQuery('potato->count()->group(prop0)->reduce(median,prop0)',
+				return testQuery('potato->count()->group(prop0)->reduce(prop0,median)',
 					{"rows":[["count potato (median: prop0)",3]]})
 			});
 
 			it.skip('will find nth percentile', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(8));
-				return testQuery('potato->count()->group(prop0)->reduce(pct,25,prop0)',
+				return testQuery('potato->count()->group(prop0)->reduce(prop0,pct,25)',
 					{"rows":[["count potato (sum: prop0)",2]]})
 			});
 
 			it('will calculate % change between last two values', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(6));
-				return testQuery('potato->count()->group(prop0)->reduce(%change,prop0)',
+				return testQuery('potato->count()->group(prop0)->reduce(prop0,%change)',
 					{"rows":[["count potato (%change: prop0)",25]]})
 			});
 
 			it('will calculate trend', () => {
 				fetchMock
 					.mock(/potato/, multiply(5, mockKeenData(8)));
-				return testQuery('potato->count()->group(prop0)->reduce(trend,prop0)',
+				return testQuery('potato->count()->group(prop0)->reduce(prop0,trend)',
 					{"rows":[["count potato (trend: prop0)", 5]]})
 			});
 
@@ -285,14 +285,14 @@ describe('Data manipulation', () => {
 				it('will calculate all trivial reductions on a column', () => {
 					fetchMock
 						.mock(/potato/, mockKeenData(3));
-					return testQuery('potato->count()->group(prop0)->reduce(all,prop0)',
+					return testQuery('potato->count()->group(prop0)->reduce(prop0,all)',
 						{"headings":[undefined,"count potato"],"rows":[["avg",1],["min",0],["max",2],["median",1],["sum",3],["trend",1],["%change",100]]})
 				})
 
 				it('will calculate all trivial reductions on a table', () => {
 					fetchMock
 						.mock(/potato/, mockKeenData(3, 3));
-					return testQuery('potato->count()->group(prop0,prop1)->reduce(all,prop0)',
+					return testQuery('potato->count()->group(prop0,prop1)->reduce(prop0,all)',
 						{"headings":["prop1","avg","min","max","median","sum","trend","%change"],"rows":[["prop1-0",10,0,20,10,30,10,100],["prop1-1",11,1,21,11,33,10,90.9090909090909],["prop1-2",12,2,22,2,36,5,1000]]});
 				})
 			})
@@ -300,7 +300,7 @@ describe('Data manipulation', () => {
 			it('will append result to existing table if requested', () => {
 				fetchMock
 					.mock(/potato/, mockKeenData(3));
-				return testQuery('potato->count()->group(prop0)->reduce(sum,prop0,true)',
+				return testQuery('potato->count()->group(prop0)->reduce(prop0,sum,true)',
 					{"headings":["prop0","count potato"],"rows":[["prop0-0",0],["prop0-1",1],["prop0-2",2],["count potato (sum: prop0)",3]]})
 			});
 		})
@@ -505,13 +505,13 @@ describe('Data manipulation', () => {
 		it.skip('can concat data grouped by property to data grouped by date and property', () => {
 			fetchMock
 				.mock(/page%3Aview.*group/, dateDeviceData);
-			return testQuery('@concat(page:view->count()->group(device.primaryHardwareType), page:view->count()->group(device.primaryHardwareType)->reduce(max,timeframe))->interval(d)');
+			return testQuery('@concat(page:view->count()->group(device.primaryHardwareType), page:view->count()->group(device.primaryHardwareType)->reduce(timeframe,max))->interval(d)');
 		});
 
 		it('can do complex stuff with data grouped by date and other properties', () => {
 			fetchMock
 				.mock(/page%3Aview/, dateDeviceLayoutData)
-			return testQuery('page:view->count()->group(device.primaryHardwareType,device.oGridLayout)->interval(d)->reduce(avg,device.oGridLayout)->reduce(max,timeframe)',
+			return testQuery('page:view->count()->group(device.primaryHardwareType,device.oGridLayout)->interval(d)->reduce(device.oGridLayout,avg)->reduce(timeframe,max)',
 				{"headings":["device.primaryHardwareType","count page:view (avg: device.oGridLayout) (max: timeframe)"],"rows":[["Desktop",845967.5555555555],["Mobile Phone",82384.55555555556],["Tablet",88403.11111111111]]});
 
 		});

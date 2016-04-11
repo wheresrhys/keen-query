@@ -148,13 +148,13 @@ These allow values to be combined according to well known mathematical functions
 
 | Function | String | JS API |
 | ------------- |-------------| -----|
-| Average of values | `->reduce(avg,timeframe)` | `kq.reduce('avg','timeframe')` |
-| Sum of values | `->reduce(sum,timeframe)` | `kq.reduce('sum','timeframe')` |
-| Minimum value | `->reduce(min,timeframe)` | `kq.reduce('min','timeframe')` |
-| Maximum value | `->reduce(max,timeframe)` | `kq.reduce('max','timeframe')` |
-| Median value | `->reduce(median,timeframe)` | `kq.reduce('median','timeframe')` |
-| Trend (linear regression gradient) | `->reduce(trend,timeframe)` | `kq.reduce('trend','timeframe')` |
-| Percent change - % up/down in last 2 values | `->reduce(%change,timeframe)` | `kq.reduce('%change','timeframe')` |
+| Average of values | `->reduce(timeframe,avg)` | `kq.reduce('timeframe', 'avg')` |
+| Sum of values | `->reduce(timeframe,sum)` | `kq.reduce('timeframe', 'sum')` |
+| Minimum value | `->reduce(timeframe,min)` | `kq.reduce('timeframe', 'min')` |
+| Maximum value | `->reduce(timeframe,max)` | `kq.reduce('timeframe', 'max')` |
+| Median value | `->reduce(timeframe,median)` | `kq.reduce('timeframe', 'median')` |
+| Trend (linear regression gradient) | `->reduce(timeframe,trend)` | `kq.reduce('timeframe', 'trend')` |
+| Percent change - % up/down in last 2 values | `->reduce(timeframe,%change)` | `kq.reduce('timeframe', '%change')` |
 
 If a third paramter is set to `true` a table will be returned that concatenates the reduction on as an additional column
 
