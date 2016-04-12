@@ -1,4 +1,8 @@
 const KeenQuery = require('../lib');
+KeenQuery.setConfig({
+	KEEN_PROJECT_ID: 'test_proj',
+	KEEN_READ_KEY: 'test_key'
+});
 const Aggregator = require('../lib/aggregator');
 const expect = require('chai').expect;
 const fetchMock = require('fetch-mock');
@@ -16,7 +20,7 @@ describe('regression tests', () => {
 		const kq = KeenQuery.build('potato->count()->group(prop0,prop1)');
 
 		return kq
-			.print('json')
+			.print('matrix')
 			.then(data1 => {
 				return kq.clone(true)
 					.print()
@@ -36,7 +40,7 @@ describe('regression tests', () => {
 		const kq = KeenQuery.build('@ratio(potato->count()->group(prop0,prop1),potato->count()->group(prop0,prop1))');
 
 		return kq
-			.print('json')
+			.print('matrix')
 			.then(data1 => {
 				return kq.clone(true)
 					.print()
@@ -73,7 +77,7 @@ describe('regression tests', () => {
 		fetchMock
 			.mock(/potato/, mockKeenData({size: [3], props: ['timeframe']}));
 
-		return testQuery('@concat(@ratio(potato->count(),potato->count()),@pct(potato->count(),potato->count()))->interval(d)->relabel(CONCATENATION_RESULT,Home,World)',
+		return testQuery('@concat(@ratio(potato->count(),potato->count()),@pct(potato->count(),potato->count()))->interval(d)->relabel(_headings,Home,World)',
 			{"headings":["timeframe","Home","World"],"rows":[["timeframe-0",0,0],["timeframe-1",0,0],["timeframe-2",0,0]]})
 			.then(fetchMock.restore);
 	});

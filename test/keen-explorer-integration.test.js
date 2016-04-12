@@ -1,6 +1,10 @@
 'use strict'
 
-const KeenQuery = require('../lib/index.js')
+const KeenQuery = require('../lib');
+KeenQuery.setConfig({
+	KEEN_PROJECT_ID: 'test_proj',
+	KEEN_READ_KEY: 'test_key'
+});
 const expect = require('chai').expect
 
 describe.skip('converting explorer urls into keen queries', () => {

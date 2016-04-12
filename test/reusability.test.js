@@ -1,6 +1,10 @@
 'use strict';
 
-const KeenQuery = require('../lib/index.js');
+const KeenQuery = require('../lib');
+KeenQuery.setConfig({
+	KEEN_PROJECT_ID: 'test_proj',
+	KEEN_READ_KEY: 'test_key'
+});
 const expect = require('chai').expect;
 describe.skip('reusability of keen-query objects', function () {
 	let baseResult;
@@ -27,8 +31,8 @@ describe.skip('reusability of keen-query objects', function () {
 		const altered = kq.filter('user.uuid');
 		expect(altered).to.not.equal(kq);
 		return Promise.all([
-			altered.print('json'),
-			kq.print('json')
+			altered.print('matrix'),
+			kq.print('matrix')
 		]).then(res => {
 			expect(res[0]).to.not.deep.equal(res[1]);
 		})
@@ -38,8 +42,8 @@ describe.skip('reusability of keen-query objects', function () {
 		const altered = kq.reduce('avg');
 		expect(altered).to.not.equal(kq);
 		return Promise.all([
-			altered.print('json'),
-			kq.print('json')
+			altered.print('matrix'),
+			kq.print('matrix')
 		]).then(res => {
 			expect(res[0]).to.not.deep.equal(res[1]);
 		})
@@ -55,8 +59,8 @@ describe.skip('reusability of keen-query objects', function () {
 		});
 		it('should not mutate original ratio data when reducing', function () {
 			return Promise.all([
-				ratio.reduce('avg').print('json'),
-				ratio.print('json')
+				ratio.reduce('avg').print('matrix'),
+				ratio.print('matrix')
 			])
 				.then(res => {
 					expect(res[0]).to.not.deep.equal(res[1]);

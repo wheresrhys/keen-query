@@ -1,5 +1,9 @@
 'use strict';
 const KeenQuery = require('../lib');
+KeenQuery.setConfig({
+	KEEN_PROJECT_ID: 'test_proj',
+	KEEN_READ_KEY: 'test_key'
+});
 const expect = require('chai').expect;
 
 // Numerical values always match coordinates e.g. the value in [1,0,3] will be 103
@@ -71,7 +75,7 @@ function log (data) {
 }
 
 module.exports.testQuery = function (kq, expected) {
-	const promise = KeenQuery.build(kq).print('json')
+	const promise = KeenQuery.build(kq).print('matrix')
 	if (!expected) {
 		promise.then(log)
 	}

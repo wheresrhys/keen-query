@@ -148,13 +148,13 @@ These allow values to be combined according to well known mathematical functions
 
 | Function | String | JS API |
 | ------------- |-------------| -----|
-| Average of values | `->reduce(avg,timeframe)` | `kq.reduce('avg','timeframe')` |
-| Sum of values | `->reduce(sum,timeframe)` | `kq.reduce('sum','timeframe')` |
-| Minimum value | `->reduce(min,timeframe)` | `kq.reduce('min','timeframe')` |
-| Maximum value | `->reduce(max,timeframe)` | `kq.reduce('max','timeframe')` |
-| Median value | `->reduce(median,timeframe)` | `kq.reduce('median','timeframe')` |
-| Trend (linear regression gradient) | `->reduce(trend,timeframe)` | `kq.reduce('trend','timeframe')` |
-| Percent change - % up/down in last 2 values | `->reduce(%change,timeframe)` | `kq.reduce('%change','timeframe')` |
+| Average of values | `->reduce(timeframe,avg)` | `kq.reduce('timeframe', 'avg')` |
+| Sum of values | `->reduce(timeframe,sum)` | `kq.reduce('timeframe', 'sum')` |
+| Minimum value | `->reduce(timeframe,min)` | `kq.reduce('timeframe', 'min')` |
+| Maximum value | `->reduce(timeframe,max)` | `kq.reduce('timeframe', 'max')` |
+| Median value | `->reduce(timeframe,median)` | `kq.reduce('timeframe', 'median')` |
+| Trend (linear regression gradient) | `->reduce(timeframe,trend)` | `kq.reduce('timeframe', 'trend')` |
+| Percent change - % up/down in last 2 values | `->reduce(timeframe,%change)` | `kq.reduce('timeframe', '%change')` |
 
 If a third paramter is set to `true` a table will be returned that concatenates the reduction on as an additional column
 
@@ -166,14 +166,14 @@ If a third paramter is set to `true` a table will be returned that concatenates 
 - `divide(n)` Divides each value by n
 - `sortAsc()` (1 dimensional tables only)
 - `sortDesc()` (1 dimensional tables only)
-- `sortProp(property,value1,value2,...)` Sorts rows in the result according to values in the `property` axis, in the order given
+- `reorder(property,value1,value2,...)` Sorts rows in the result according to values in the `property` axis, in the order given
 - `plotThreshold(value, name)` For graphs over time, draws an additional line fixed at the given value
-- `relabel(property,value1,value2,...)` relabels the data labels in the `property` axis (unwise to use this unless e.g using @concat on a preditable set of values, or if using `->sortProp()` first)
+- `relabel(property,value1,value2,...)` relabels the data labels in the `property` axis (unwise to use this unless e.g using @concat on a preditable set of values, or if using `->reorder()` first)
 
 #### Experimental
 
-- `top(n,[percent])`/ `bottom(n,[percent])` shows the top/bottom n (or n percent) of results
-- `cutoff(n,[percent])` ignore all values smaller than n (or n percent of the total)
+- `top(n)`/ `bottom(n)` shows the top/bottom n (or n percent if the last character is '%') of results
+- `cutoff(n)` ignore all values smaller than n (or n percent if the last character is '%')
 - `sortAsc(prop,[reduction,dimension])`
 - `sortDesc(prop,[reduction,dimension])`
 
@@ -187,7 +187,7 @@ There are a few built in methods for outputting data
 | JSON representation of the query | `->print(qo)` | `kq.print('qo') |
 | Stringified JSON representation of the query | `->print(qs)` | `kq.print('qs') |
 | The raw JSON response(s) from Keen | `->print(raw)` | `kq.print('raw') |
-| Normalised JSON of the response (a 2 dimensional matrix with headings) | `->print(json)` | `kq.print('json') |
+| Flattened matrix representation of the response | `->print(matrix)` | `kq.print('matrix') |
 | Prints out an ASCII table of the results | `->print(ascii)` | `kq.print('ascii') |
 
 `KeenQuery.definePrinter(name, func)` can be used to define your own printers (e.g. to output a graph to the DOM). Within `func`, `this` will point at the current KeenQuery instance, and `this.getTable()` will give access to an object with the following properties and methods:
@@ -226,5 +226,4 @@ the Keen data with all aggregations, reductions etc. already applied.
 ### Utilities
 
 - KeenQuery.parseFilter(str) - converts a string compatible with the above syntax into a Keen filter object
-- KeenQuery.forceQuery(func) - the function will be run as part of every query. Useful for e.g. excluding test data from results
 - KeenQuery.defineQuery(name, func) - defines a method `name` which can be used as part of a keen-query string or in the JS API.
