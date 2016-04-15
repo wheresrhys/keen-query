@@ -82,11 +82,7 @@ describe('Parsing keen queries', function () {
 		it('allows filters', function () {
 			expect(parser('coll->count()->filter(condition)').functions[1]).to.deep.equal({
 				func: 'filter',
-				params: [{
-					"operator": "exists",
-					"property_name": "condition",
-					"property_value": true
-				}]
+				params: ['condition']
 			})
 		})
 
