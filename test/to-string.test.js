@@ -5,7 +5,7 @@ const KeenQuery = require('../lib/keen-query');
 
 describe('toString', function () {
 	describe('aggregator', function () {
-		it.only('should preserve shared filters', function () {
+		it('should preserve shared filters', function () {
 
 			const query = KeenQuery.build(`
 				@pct(
