@@ -1,3 +1,9 @@
 machine:
   node:
     version: 4.2.1
+deployment:
+  release:
+    tag: /v.*/
+    owner: Financial-Times
+    commands:
+      - make npm-publish
