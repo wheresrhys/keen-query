@@ -1,4 +1,4 @@
-.PHONY: test
+include n.Makefile
 
 test-unit:
 	mocha test/helpers.js test
