@@ -91,4 +91,15 @@ describe('regression tests', () => {
 			.then(fetchMock.restore);
 	});
 
+	it('Can override previously called shared method for aggregators', () => {
+		const kq = KeenQuery.build('@ratio(potato->count(),potato->count())->interval(d)');
+		const kq2 = kq.interval('h');
+		return kq2.print('url').then(urls => {
+			expect(urls[0]).to.contain('hourly')
+			expect(urls[1]).to.contain('hourly')
+		})
+
+
+	})
+
 });
