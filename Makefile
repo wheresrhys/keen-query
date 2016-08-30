@@ -1,10 +1,6 @@
-.PHONY: test
-
-install:
-	npm install
+include n.Makefile
 
 test-unit:
 	mocha test/helpers.js test
 
-test: test-unit
-	nbt verify --skip-layout-checks
+test: test-unit verify
