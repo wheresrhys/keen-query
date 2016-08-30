@@ -214,8 +214,35 @@ describe('Data manipulation', () => {
 
 		});
 
-		describe.skip('@subtract aggregator', () => {
+		describe('@subtract aggregator', () => {
+			it('should subtract two numbers', () => {
+				fetchMock
+					.mock(/potato/, {result: 1})
+					.mock(/tomato/, {result: 2})
+				return testQuery('@subtract(potato->count(),tomato->count())',
+					{ rows: [ [ 'count potato', -1 ] ] });
+			})
+			it('should subtract two columns', () => {
+				fetchMock
+					.mock(/potato/, mockKeenData(4))
+					.mock(/tomato/, multiply(2, mockKeenData(4)))
+				return testQuery('@subtract(potato->count()->group(prop0),tomato->count()->group(prop0))',
+					{"headings":["prop0","count potato"],"rows":[["prop0-0",0],["prop0-1",-1],["prop0-2",-2],["prop0-3",-3]]});
+			})
+			it('should subtract two tables', () => {
+				fetchMock
+					.mock(/potato/, mockKeenData({size: [4, 3]}))
+					.mock(/tomato/, multiply(2, mockKeenData({size: [4, 3]})))
+				return testQuery('@subtract(potato->count()->group(prop0,prop1),tomato->count()->group(prop0,prop1))',
+					{"headings":["prop0","prop1-0","prop1-1","prop1-2"],"rows":[["prop0-0",0,-1,-2],["prop0-1",-10,-11,-12],["prop0-2",-20,-21,-22],["prop0-3",-30,-31,-32]]});
+			})
 
+			it.skip('should handle gaps', () => {
+				fetchMock
+					.mock(/potato/, mockKeenData({size: [4, 3], gapsAt: [[2,0],[2,1],[2,2]]}))
+					.mock(/tomato/, mockKeenData({size: [4, 3]}))
+				return testQuery('@subtract(potato->count()->group(prop0,prop1),tomato->count()->group(prop0,prop1))',null);
+			})
 		});
 	});
 
