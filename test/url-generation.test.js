@@ -20,6 +20,7 @@ const queryUrlMappings = {
 	},
 	filters: {
 		'tomato:bread->count()->filter(prop=true)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22eq%22%2C%22property_value%22%3Atrue%7D%5D',
+		'tomato:bread->count()->filter(prop=null)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22eq%22%2C%22property_value%22%3Anull%7D%5D',
 		'tomato:bread->count()->filter(prop!=false)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22ne%22%2C%22property_value%22%3Afalse%7D%5D',
 		'tomato:bread->count()->filter(prop>1)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22gt%22%2C%22property_value%22%3A1%7D%5D',
 		'tomato:bread->count()->filter(prop<2)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22lt%22%2C%22property_value%22%3A2%7D%5D',
