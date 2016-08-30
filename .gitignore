@@ -1,5 +1,6 @@
 /node_modules/
 /bower_components/
 /.idea/
-.env
 /test.js
+.eslintrc.js
+.editorconfig
