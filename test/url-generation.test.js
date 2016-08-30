@@ -7,6 +7,8 @@ KeenQuery.setConfig({
 });
 const expect = require('chai').expect;
 
+//FYI - to run just a single onle of these prefix the entry with `only.`
+
 const queryUrlMappings = {
 	extractionTypes: {
 		'tomato:bread->count()': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days',
@@ -24,6 +26,8 @@ const queryUrlMappings = {
 		'tomato:bread->count()->filter(prop!=false)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22ne%22%2C%22property_value%22%3Afalse%7D%5D',
 		'tomato:bread->count()->filter(prop>1)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22gt%22%2C%22property_value%22%3A1%7D%5D',
 		'tomato:bread->count()->filter(prop<2)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22lt%22%2C%22property_value%22%3A2%7D%5D',
+		'tomato:bread->count()->filter(prop>=1)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22gte%22%2C%22property_value%22%3A1%7D%5D',
+		'tomato:bread->count()->filter(prop<=2)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22lte%22%2C%22property_value%22%3A2%7D%5D',
 		'tomato:bread->count()->filter(prop~val)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22contains%22%2C%22property_value%22%3A%22val%22%7D%5D',
 		'tomato:bread->count()->filter(prop!~val)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22not_contains%22%2C%22property_value%22%3A%22val%22%7D%5D',
 		'tomato:bread->count()->filter(prop?val1,val2)': 'https://api.keen.io/3.0/projects/test_proj/queries/count?api_key=test_key&event_collection=tomato%3Abread&timeframe=this_14_days&filters=%5B%7B%22property_name%22%3A%22prop%22%2C%22operator%22%3A%22in%22%2C%22property_value%22%3A%5B%22val1%22%2C%22val2%22%5D%7D%5D',
@@ -114,19 +118,23 @@ describe('Generation of keen urls from keen query strings', () => {
 	Object.keys(queryUrlMappings).forEach(category => {
 		const queries = queryUrlMappings[category];
 		describe(category, () => {
-			Object.keys(queries).forEach(kq => {
+			Object.keys(queries).forEach(key => {
 				let func = it;
-				if (kq.indexOf('skip.') === 0) {
+				let kq = key;
+				if (key.indexOf('skip.') === 0) {
 					func = it.skip;
-					kq = kq.replace('skip.', '')
+					kq = key.replace('skip.', '')
+				} else if (key.indexOf('only.') === 0) {
+					func = it.only;
+					kq = key.replace('only.', '')
 				}
 				func(`Should construct api url(s) correctly for ${kq}`, () => {
 					return KeenQuery.build(kq).print('url')
 						.then(url => {
 							if (Array.isArray(url)) {
-								expect(url).to.deep.equal(queries[kq]);
+								expect(url).to.deep.equal(queries[key]);
 							} else {
-								expect(url).to.equal(queries[kq]);
+								expect(url).to.equal(queries[key]);
 							}
 						});
 				});
