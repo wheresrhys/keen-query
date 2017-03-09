@@ -104,28 +104,28 @@ describe('Parsing keen queries', function () {
 	describe('aggregators', function () {
 		it('can do ratios', function () {
 			expect(parser('@ratio(coll->count(),coll->count(user))')).to.deep.equal({
-				"type": 'AggregateQuery',
+				'type': 'AggregateQuery',
 				'functions': [],
-				"aggregator": "ratio",
-				"body": [
+				'aggregator': 'ratio',
+				'body': [
 					{
-						"type": 'KeenQuery',
-						"event": "coll",
-						"functions": [
+						'type': 'KeenQuery',
+						'event': 'coll',
+						'functions': [
 							{
-								"func": "count",
-								"params": []
+								'func': 'count',
+								'params': []
 							}
 						]
 					},
 					{
-						"type": 'KeenQuery',
-						"event": "coll",
-						"functions": [
+						'type': 'KeenQuery',
+						'event': 'coll',
+						'functions': [
 							{
-								"func": "count",
-								"params": [
-									"user"
+								'func': 'count',
+								'params': [
+									'user'
 								]
 							}
 						]
@@ -136,28 +136,28 @@ describe('Parsing keen queries', function () {
 
 		it('can do pct', function () {
 			expect(parser('@pct(coll->count(),coll->count(user))')).to.deep.equal({
-				"type": 'AggregateQuery',
+				'type': 'AggregateQuery',
 				'functions': [],
-				"aggregator": "pct",
-				"body": [
+				'aggregator': 'pct',
+				'body': [
 					{
-						"type": 'KeenQuery',
-						"event": "coll",
-						"functions": [
+						'type': 'KeenQuery',
+						'event': 'coll',
+						'functions': [
 							{
-								"func": "count",
-								"params": []
+								'func': 'count',
+								'params': []
 							}
 						]
 					},
 					{
-						"type": 'KeenQuery',
-						"event": "coll",
-						"functions": [
+						'type': 'KeenQuery',
+						'event': 'coll',
+						'functions': [
 							{
-								"func": "count",
-								"params": [
-									"user"
+								'func': 'count',
+								'params': [
+									'user'
 								]
 							}
 						]
@@ -168,28 +168,28 @@ describe('Parsing keen queries', function () {
 
 		it('can do sums', function () {
 			expect(parser('@sum(coll->count(),coll->count(user))')).to.deep.equal({
-				"type": 'AggregateQuery',
+				'type': 'AggregateQuery',
 				'functions': [],
-				"aggregator": "sum",
-				"body": [
+				'aggregator': 'sum',
+				'body': [
 					{
-						"type": 'KeenQuery',
-						"event": "coll",
-						"functions": [
+						'type': 'KeenQuery',
+						'event': 'coll',
+						'functions': [
 							{
-								"func": "count",
-								"params": []
+								'func': 'count',
+								'params': []
 							}
 						]
 					},
 					{
-						"type": 'KeenQuery',
-						"event": "coll",
-						"functions": [
+						'type': 'KeenQuery',
+						'event': 'coll',
+						'functions': [
 							{
-								"func": "count",
-								"params": [
-									"user"
+								'func': 'count',
+								'params': [
+									'user'
 								]
 							}
 						]
@@ -200,40 +200,40 @@ describe('Parsing keen queries', function () {
 
 		it('can do concatenation', function () {
 			expect(parser('@concat(coll->count(),coll->count(user),collTwo->avg(thing))')).to.deep.equal({
-				"type": 'AggregateQuery',
+				'type': 'AggregateQuery',
 				'functions': [],
-				"aggregator": "concat",
-				"body": [
+				'aggregator': 'concat',
+				'body': [
 					{
-						"type": 'KeenQuery',
-						"event": "coll",
-						"functions": [
+						'type': 'KeenQuery',
+						'event': 'coll',
+						'functions': [
 							{
-								"func": "count",
-								"params": []
+								'func': 'count',
+								'params': []
 							}
 						]
 					},
 					{
-						"type": 'KeenQuery',
-						"event": "coll",
-						"functions": [
+						'type': 'KeenQuery',
+						'event': 'coll',
+						'functions': [
 							{
-								"func": "count",
-								"params": [
-									"user"
+								'func': 'count',
+								'params': [
+									'user'
 								]
 							}
 						]
 					},
 					{
-						"type": 'KeenQuery',
-						"event": "collTwo",
-						"functions": [
+						'type': 'KeenQuery',
+						'event': 'collTwo',
+						'functions': [
 							{
-								"func": "avg",
-								"params": [
-									"thing"
+								'func': 'avg',
+								'params': [
+									'thing'
 								]
 							}
 						]
@@ -244,40 +244,40 @@ describe('Parsing keen queries', function () {
 
 		it('can do funnels', function () {
 			expect(parser('@funnel(coll->count(),coll->count(user),collTwo->avg(thing))')).to.deep.equal({
-				"type": 'AggregateQuery',
+				'type': 'AggregateQuery',
 				'functions': [],
-				"aggregator": "funnel",
-				"body": [
+				'aggregator': 'funnel',
+				'body': [
 					{
-						"type": 'KeenQuery',
-						"event": "coll",
-						"functions": [
+						'type': 'KeenQuery',
+						'event': 'coll',
+						'functions': [
 							{
-								"func": "count",
-								"params": []
+								'func': 'count',
+								'params': []
 							}
 						]
 					},
 					{
-						"type": 'KeenQuery',
-						"event": "coll",
-						"functions": [
+						'type': 'KeenQuery',
+						'event': 'coll',
+						'functions': [
 							{
-								"func": "count",
-								"params": [
-									"user"
+								'func': 'count',
+								'params': [
+									'user'
 								]
 							}
 						]
 					},
 					{
-						"type": 'KeenQuery',
-						"event": "collTwo",
-						"functions": [
+						'type': 'KeenQuery',
+						'event': 'collTwo',
+						'functions': [
 							{
-								"func": "avg",
-								"params": [
-									"thing"
+								'func': 'avg',
+								'params': [
+									'thing'
 								]
 							}
 						]
