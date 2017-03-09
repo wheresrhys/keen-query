@@ -1,5 +1,3 @@
-'use strict';
-
 const KeenQuery = require('../lib');
 KeenQuery.setConfig({
 	KEEN_PROJECT_ID: 'test_proj',
