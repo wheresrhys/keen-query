@@ -78,7 +78,7 @@ describe('regression tests', () => {
 			.mock(/potato/, mockKeenData({size: [3], props: ['timeframe']}));
 
 		return testQuery('@concat(@ratio(potato->count(),potato->count()),@pct(potato->count(),potato->count()))->interval(d)->relabel(_headings,Home,World)',
-			{"headings":["timeframe","Home","World"],"rows":[["timeframe-0",0,0],["timeframe-1",0,0],["timeframe-2",0,0]]})
+			{'headings':['timeframe','Home','World'],'rows':[['timeframe-0',0,0],['timeframe-1',0,0],['timeframe-2',0,0]]})
 			.then(fetchMock.restore);
 	});
 
@@ -87,7 +87,7 @@ describe('regression tests', () => {
 		fetchMock
 			.mock(/potato/, {result: 2});
 
-		return testQuery('potato->count()->filter(egg=anegg=)', {"rows":[["count potato",2]]})
+		return testQuery('potato->count()->filter(egg=anegg=)', {'rows':[['count potato',2]]})
 			.then(fetchMock.restore);
 	});
 
