@@ -1,4 +1,3 @@
-'use strict';
 const KeenQuery = require('../lib');
 KeenQuery.setConfig({
 	KEEN_PROJECT_ID: 'test_proj',
@@ -70,7 +69,7 @@ module.exports.multiply = function (n, result) {
 // }));
 // console.log(mockKeenData(2))
 function log (data) {
-	console.log(JSON.stringify(data).replace('null', 'Infinity'))
+	console.log(JSON.stringify(data).replace('null', 'Infinity')) //eslint-disable-line
 	return data;
 }
 
