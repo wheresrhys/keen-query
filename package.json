@@ -14,7 +14,8 @@
     "kq": "./bin/keen-query.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "commit-wizard"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
   },
   "homepage": "https://github.com/Financial-Times/keen-query#readme",
   "devDependencies": {
+    "@financial-times/n-gage": "^1.1.2",
     "bower": "^1.7.9",
     "chai": "^3.4.1",
     "eslint": "^3.4.0",
@@ -36,5 +38,12 @@
     "mocha": "^2.4.2",
     "npm-prepublish": "^1.2.1",
     "sinon": "^1.17.3"
+  },
+  "config": {
+    "pre-git": {
+      "pre-commit": [
+        "node_modules/.bin/secret-squirrel"
+      ]
+    }
   }
 }
