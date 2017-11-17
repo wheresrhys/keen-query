@@ -15,7 +15,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "commit": "commit-wizard"
+    "commit": "commit-wizard",
+    "precommit": "node_modules/.bin/secret-squirrel",
+    "commitmsg": "node_modules/.bin/secret-squirrel-commitmsg",
+    "prepush": "make verify -j3"
   },
   "repository": {
     "type": "git",
@@ -29,7 +32,7 @@
   },
   "homepage": "https://github.com/Financial-Times/keen-query#readme",
   "devDependencies": {
-    "@financial-times/n-gage": "^1.1.2",
+    "@financial-times/n-gage": "^1.16.0",
     "bower": "^1.7.9",
     "chai": "^3.4.1",
     "eslint": "^3.4.0",
@@ -39,11 +42,5 @@
     "npm-prepublish": "^1.2.1",
     "sinon": "^1.17.3"
   },
-  "config": {
-    "pre-git": {
-      "pre-commit": [
-        "node_modules/.bin/secret-squirrel"
-      ]
-    }
-  }
+  "config": {}
 }
