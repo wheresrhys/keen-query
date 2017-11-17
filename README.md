@@ -128,8 +128,8 @@ A number of additional methods can be used to aggregate, reduce, or otherwise ma
 
 **Note on specifying dimensions:**
 Some methods expect a dimension to be specified e.g to choose between taking an average across rows or columns. The value of dimension can be
- - `timeframe` or the name of a property that has been grouped by
- - a positive integer (0 indexed) to refer dirctly to a given dimension e.g in a table plotting count against time, a value of `1` would pick out the time dimension. Dimensions are added in the same order the methods creating them are called so e.g. `->interval(d)->group(uuid)` would have `timeframe` as the 0th dimension, `uuid` as the 1st;
+	- `timeframe` or the name of a property that has been grouped by
+	- a positive integer (0 indexed) to refer dirctly to a given dimension e.g in a table plotting count against time, a value of `1` would pick out the time dimension. Dimensions are added in the same order the methods creating them are called so e.g. `->interval(d)->group(uuid)` would have `timeframe` as the 0th dimension, `uuid` as the 1st;
 
 #### Aggregators
 
@@ -211,20 +211,18 @@ There are a few built in methods for outputting data
 
 ```
 	{
-  		headings: ['array', 'of', 'column', 'headings',
-  		rows: [[], [], []] // rows of data, including row headings in the first position of each sub array
+			headings: ['array', 'of', 'column', 'headings',
+			rows: [[], [], []] // rows of data, including row headings in the first position of each sub array
 	}
 ```
 - `cellIterator (func, endDepth)` - Iterates a function over each cell in the table *TODO - known bug. need to change to being immutable*
 - `switchDimensions (a, b, method)` - switches two dimensions e.g. swaps rows for columns
-   - a - index/name of the first dimension to move (default 0)
-   - b - index/name of the second dimension to move (default: the deepest dimension of the table)
-   - method - when a or b are their default values, setting method to `shuffle` will move the dimension to be the first/last, and shuffle all other dimesnions along to make room, as opposed to swapping the a/bth dimension with the first/last
+	- a - index/name of the first dimension to move (default 0)
+	- b - index/name of the second dimension to move (default: the deepest dimension of the table)
+	- method - when a or b are their default values, setting method to `shuffle` will move the dimension to be the first/last, and shuffle all other dimesnions along to make room, as opposed to swapping the a/bth dimension with the first/last
 
 
 the Keen data with all aggregations, reductions etc. already applied.
-
-
 
 ### Utilities
 
