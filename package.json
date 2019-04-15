@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/Financial-Times/keen-query#readme",
   "devDependencies": {
-    "@financial-times/n-gage": "^1.1.2",
+    "@financial-times/n-gage": "^3.5.0",
     "bower": "^1.7.9",
     "chai": "^3.4.1",
     "eslint": "^3.4.0",
